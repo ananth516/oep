@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+	<persistence-unit name="persistenceUnit"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<non-jta-data-source>oep/jdbc/DataSource</non-jta-data-source> 
+		<class>com.oracle.oep.bulkprocessing.model.BulkBatchMaster</class>
+		<class>com.oracle.oep.bulkprocessing.model.BulkJobMaster</class>
+		<class>com.oracle.oep.bulkprocessing.model.OepOrder</class>
+		<class>com.oracle.oep.bulkprocessing.model.OepOrderLine</class>
+		<properties>
+
+            <property name="eclipselink.logging.level" value="FINE"/>   
+            <property name="eclipselink.cache.shared.default" value="false"/>
+
+		</properties>
+
+	</persistence-unit>
+
+
+</persistence>

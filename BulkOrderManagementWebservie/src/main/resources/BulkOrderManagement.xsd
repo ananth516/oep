@@ -1,0 +1,201 @@
+<xsd:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com.mv/OEP/BulkOrderManagement/Order/V1" 
+xmlns="http://xmlns.oracle.com.mv/OEP/BulkOrderManagement/Order/V1" xmlns:xsdLocal="http://xmlns.oracle.com.mv/OEP/BulkOrderManagement/Order/V1" elementFormDefault="qualified">
+
+	<xsd:element name="BulkOrderEntryRequest">
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element name="ProcessBulkOrderRequest" minOccurs="0" maxOccurs="1" type="xsdLocal:ProcessBulkOrderRequestType" />	
+				<xsd:element name="QueryWithFileOrderIdRequest" minOccurs="0" maxOccurs="1" type="xsdLocal:QueryWithFileOrderIdRequestType" />
+				<xsd:element name="QueryWithBatchIdRequest" minOccurs="0" maxOccurs="1" type="xsdLocal:QueryWithBatchIdRequestType" />
+				<xsd:element name="QueryFailedRecordsRequest" minOccurs="0" maxOccurs="1"  type="xsdLocal:QueryFailedRecordsRequestType" />
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="BulkOrderEntryResponse">
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element name="ProcessBulkOrderResponse" type="xsdLocal:ProcessBulkOrderResponseType" />
+				<xsd:element name="QueryWithFileOrderIdResponse" type="xsdLocal:QueryWithFileOrderIdResponseType" />
+				<xsd:element name="QueryWithBatchIdResponse" type="xsdLocal:QueryWithBatchIdResponseType"/>
+				<xsd:element name="QueryFailedRecordsResponse" type="QueryFailedRecordsResponseType"/>
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>		
+	
+	<xsd:complexType name="QueryWithFileOrderIdRequestType">
+		<xsd:sequence>
+			<xsd:element name="QueryBatches" type="xsdLocal:QueryBatchesType" />		  
+		</xsd:sequence>
+	</xsd:complexType>		
+	
+	<xsd:complexType name="QueryWithFileOrderIdResponseType">
+		<xsd:all>
+			<xsd:element name="QueryBatchesResponse" type="xsdLocal:QueryBatchesResponseType" />	
+			<xsd:element name="StatusCode" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="StatusDescription" type="xsd:string" minOccurs="1" maxOccurs="1"/>	  
+		</xsd:all>
+	</xsd:complexType>	
+	
+	<xsd:complexType name="QueryWithBatchIdRequestType">
+		<xsd:sequence>
+			<xsd:element name="QueryBatches" type="xsdLocal:QueryWithBatchIdType" />		  
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+	<xsd:complexType name="QueryWithBatchIdResponseType">
+		<xsd:sequence>
+			<xsd:element name="QueryBatchesResponse" type="xsdLocal:QueryBatchIdResponseType" />
+			<xsd:element name="StatusCode" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="StatusDescription" type="xsd:string" minOccurs="1" maxOccurs="1"/>		  
+		</xsd:sequence>
+	</xsd:complexType>	
+		
+	<xsd:complexType name="QueryFailedRecordsRequestType">
+		<xsd:sequence>
+			<xsd:element name="QueryFailedBatches" type="xsdLocal:QueryFailedBatchesType" />		  
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+	<xsd:complexType name="QueryFailedRecordsResponseType">
+		<xsd:sequence>
+			<xsd:element name="QueryFailedBatchesResponse" type="xsdLocal:QueryFailedBatchesResponseType" />	
+			<xsd:element name="StatusCode" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="StatusDescription" type="xsd:string" minOccurs="1" maxOccurs="1"/>	  
+		</xsd:sequence>
+	</xsd:complexType>			
+		
+	<xsd:element name="FileOrderId" type="xsd:string" />
+	<xsd:element name="FileDirectory" type="xsd:string" />
+	<xsd:element name="FileName" type="xsd:string" />	
+	<xsd:element name="BatchId" type="xsd:string" />
+	<xsd:element name="OrderId" type="xsd:string" />
+	
+	<xsd:complexType name="BulkOrderParamsType">
+		<xsd:all>
+			<xsd:element ref="FileOrderId" minOccurs="1" maxOccurs="1"/>
+			<xsd:element ref="FileDirectory" minOccurs="1" maxOccurs="1"/>
+			<xsd:element ref="FileName" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="Action" type="xsdLocal:ServiceActionEnumType" minOccurs="1" maxOccurs="1"/>	
+			<xsd:element name="OrderUserId" type="xsd:string" minOccurs="1" maxOccurs="1"/>	
+		</xsd:all>
+	</xsd:complexType>	
+	
+	<xsd:complexType name="ProcessBulkOrderRequestType">
+		<xsd:sequence>
+			<xsd:element name="BulkOrderParams" type="xsdLocal:BulkOrderParamsType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="ServiceActionEnumType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="AddPlan"/>
+			<xsd:enumeration value="ChangePlan"/>
+			<xsd:enumeration value="RemovePlan"/>
+			<xsd:enumeration value="SuspendService"/>
+			<xsd:enumeration value="ReconnectService"/>
+			<xsd:enumeration value="TerminateService"/>
+			<xsd:enumeration value="PrePaidProvisioning"/>
+			<xsd:enumeration value="PostPaidProvisioning"/>
+			<xsd:enumeration value="PrePaidStarterKit"/>
+			<xsd:enumeration value="NewServiceProvisioning"/>
+			<xsd:enumeration value="NewAccountAndServiceProvisioning"/>
+		</xsd:restriction>
+	</xsd:simpleType>	
+	
+	<xsd:complexType name="ProcessBulkOrderResponseType">
+		<xsd:sequence>
+			<xsd:element ref="FileOrderId" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="StatusCode" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="StatusDescription" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="QueryBatchesType">
+		<xsd:sequence>
+			<xsd:element ref="FileOrderId" minOccurs="1" maxOccurs="1"/>		
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="QueryBatchesResponseType">
+		<xsd:sequence>
+			<xsd:element ref="FileOrderId" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="Batch" type="xsdLocal:FileOrderBatchType" minOccurs="0" maxOccurs="unbounded"/>	
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="FileOrderBatchType">
+		<xsd:sequence>
+			<xsd:element ref="FileOrderId" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="BatchId" minOccurs="0" maxOccurs="1"/>			
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="QueryWithBatchIdType">
+		<xsd:sequence>
+			<xsd:element name="Batch" type="xsdLocal:BatchIdBatchType" minOccurs="0" maxOccurs="unbounded"/>	  
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="BatchIdBatchType">
+		<xsd:sequence>
+			<xsd:element ref="BatchId" minOccurs="0" maxOccurs="1"/>			
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="QueryBatchIdResponseType">
+		<xsd:sequence>
+			<xsd:element name="Batch" type="xsdLocal:BatchType" minOccurs="0" maxOccurs="unbounded"/>		  
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="BatchType">
+		<xsd:sequence>
+			<xsd:element ref="BatchId" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Item" type="OrderType"  minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="StatusCode" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="StatusDescription" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="AttributeType">
+		<xsd:sequence>
+			<xsd:element name="Name" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Value" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="OrderType">
+		<xsd:sequence>
+			<xsd:element ref="OrderId" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Attribute" type="xsdLocal:AttributeType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="StatusCode" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="StatusDescription" type="xsd:string" minOccurs="0" maxOccurs="1"/>			
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="QueryFailedBatchesType">
+		<xsd:choice>
+			<xsd:element ref="FileOrderId" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="BatchId" minOccurs="0" maxOccurs="1"/>
+		</xsd:choice>
+	</xsd:complexType>
+	
+	<xsd:complexType name="QueryFailedBatchesResponseType">
+		<xsd:sequence>
+			<xsd:element name="Item" type="xsdLocal:FailOrderType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	<xsd:complexType name="FailOrderType">
+		<xsd:sequence>
+			<xsd:element ref="BatchId" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="OrderId" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Attribute" type="xsdLocal:AttributeType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="FailureCode" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="FailureReason" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+		
+</xsd:schema>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+  <Properties>
+    <Property name="filename">BulkOrderWebService.log</Property>
+  </Properties>
+  
+ 
+  <Appenders>
+    <!-- Appender type="Console" name="STDOUT">
+      <Layout type="PatternLayout" pattern="%m MDC%X%n"/>     
+    </Appender>    
+    <Appender type="File" name="File" fileName="${filename}">
+      <Layout type="PatternLayout">
+        <Pattern>%d [%p] %C{1.} [%t] %m%n</Pattern>
+      </Layout>
+    </Appender-->
+    <Console name="STDOUT" target="SYSTEM_OUT">
+        <PatternLayout>
+            <!-- pattern>
+               [%d] [%p] [%c] [%t] %m%n
+            </pattern>-->
+            <pattern>&lt;%d{MMM dd, yyyy, h:mm:ss,SSS a z}&gt; &lt;%p&gt; &lt;%c&gt; &lt;%t&gt; %m%n</pattern>
+        </PatternLayout>
+    </Console>
+    <File name="File" fileName="BulkOrderWebService.log" >
+        <PatternLayout>
+            <pattern>
+                &lt;%d{MMM dd, yyyy, h:mm:ss,SSS a z}&gt; &lt;%p&gt; &lt;%c&gt; &lt;%t&gt; %m%n
+            </pattern>
+        </PatternLayout>
+    </File>
+  </Appenders> 
+  <Loggers>    
+    <Root level="INFO">
+      <AppenderRef ref="STDOUT"/>
+      <AppenderRef ref="File"/>
+    </Root>
+    <Logger name="org.apache.camel.impl" level="ERROR">
+    
+    </Logger>
+  </Loggers> 
+</Configuration>

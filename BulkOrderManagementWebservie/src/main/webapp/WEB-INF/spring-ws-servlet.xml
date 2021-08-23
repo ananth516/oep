@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://camel.apache.org/schema/spring
+          http://camel.apache.org/schema/spring/camel-spring.xsd
+          http://www.springframework.org/schema/jee
+          http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+	<!-- Route(s) -->
+	
+	<jpa:repositories base-package="com.oracle.oep.bulkprocessing"
+		entity-manager-factory-ref="entityManagerFactory"
+		transaction-manager-ref="jpaTxManager" />
+
+	<context:component-scan base-package="com.oracle.oep"
+		annotation-config="true"></context:component-scan>
+		
+	<context:property-placeholder location="file:environment.properties"/>
+	<camel:camelContext id="camelContext">
+		<camel:routeBuilder ref="bulkOrderWebserviceRoute" />
+		<camel:routeBuilder ref="BulkOrderFullFillmentRoute" />
+	</camel:camelContext>
+	<bean id="bulkOrderWebserviceRoute"
+		class="com.oracle.oep.bulkprocessing.routes.BulkOrderWebserviceRoute" />
+	<bean id="BulkOrderFullFillmentRoute"
+		class="com.oracle.oep.bulkprocessing.routes.BulkOrderFullFillmentRoute" />
+		
+	<bean id="jmsConfiguration" class="org.apache.camel.component.jms.JmsConfiguration">
+        <property name="connectionFactory" ref="jmsConnectionFactory"/>
+        <property name="destinationResolver" ref="jndiDestinationResolver"/>
+   </bean>
+   	
+	<!-- A JNDI resolver -->  
+  <bean id="jndiDestinationResolver" class="org.springframework.jms.support.destination.JndiDestinationResolver"/>
+   
+  <jee:jndi-lookup id="jmsConnectionFactory" jndi-name="${jms.connectionFactory}"/>
+  
+  <bean id="weblogicJMS" class="org.apache.camel.component.jms.JmsComponent">
+  	 
+  	<property name="configuration" ref="jmsConfiguration"/>
+  </bean>
+
+	<!-- Connection Factories -->
+	<bean id="weblogic" class="org.apache.camel.component.jms.JmsComponent">
+		<property name="connectionFactory" ref="orderConnectionFactory" />
+	</bean>
+
+	<bean id="orderConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiTemplate" ref="jndiTemplate"></property>
+		<property name="jndiName" value="${jms.connectionFactory}"></property>
+		<property name="resourceRef" value="true"></property>
+	</bean>
+
+	<bean id="jndiTemplate" class="org.springframework.jndi.JndiTemplate">
+		<property name="environment">
+			<props>
+				<prop key="java.naming.factory.initial">weblogic.jndi.WLInitialContextFactory</prop>
+					<prop key="java.naming.provider.url">${weblogic.provider.url}</prop>
+			</props>
+		</property>
+
+	</bean>
+	<!-- <jee:jndi-lookup id="orderConnectionFactory" jndi-name="jms/bulkOrderConnectionFactory"/> -->
+
+	<!-- Endpoint Mapping -->
+	<bean id="endpointMapping"
+		class="org.apache.camel.component.spring.ws.bean.CamelEndpointMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="validatingInterceptor" />
+				<ref bean="loggingInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- === Interceptors ==== -->
+	<bean id="loggingInterceptor"
+		class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor" />
+
+ 	<bean id="validatingInterceptor"
+		class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
+		<property name="schema" value="/WEB-INF/classes/BulkOrderManagement.xsd" />
+		<property name="validateRequest" value="true" />
+		<property name="validateResponse" value="false" />
+	</bean>
+
+	<!-- WSDL Exposure -->
+	<bean id="bulkOrder"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+		<property name="schema">
+			<bean id="xsd" class="org.springframework.xml.xsd.SimpleXsdSchema">
+				<property name="xsd" value="WEB-INF/classes/BulkOrderManagement.xsd" />
+			</bean>
+		</property>
+		<property name="portTypeName" value="oep" />
+		<property name="locationUri" value="/bulkOrder" />
+		<property name="targetNamespace"
+			value="http://localhost:7001/BulkOrderManagement/bulkOrder"></property>
+	</bean>
+
+	<bean id="jpa" class="org.apache.camel.component.jpa.JpaComponent">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+		<property name="transactionManager" ref="jpaTxManager" />
+	</bean>
+<!-- 	<bean id="jpaTxManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean> -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="persistenceUnit" />
+	</bean>
+	<bean id="jpaTxManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>	
+</beans>
