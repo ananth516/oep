@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/communications/schemas/CRMSync" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:crmsync="http://xmlns.oracle.com/communications/schemas/CRMSync">
+  
+  <xs:element name="NotifChangeRatePlanFailure">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="crmsync:AccountNo"/>
+        <xs:element ref="crmsync:ServiceNo"/>
+        <xs:element ref="crmsync:EventDescr"/>
+        <xs:element ref="crmsync:Channel"/>
+        <xs:element ref="crmsync:FailureCode"/>
+        <xs:element ref="crmsync:OrderSource"/>
+      </xs:sequence>
+      <xs:attribute name="InstanceId" use="required" type="xs:string"/>      
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AccountNo" type="xs:string"/>
+  <xs:element name="ServiceNo" type="xs:long"/>
+  <xs:element name="EventDescr" type="xs:string"/>
+  <xs:element name="Channel" type="xs:string"/>
+  <xs:element name="FailureCode" type="xs:string"/>
+   <xs:element type="xs:string" name="OrderSource"/>
+</xs:schema>

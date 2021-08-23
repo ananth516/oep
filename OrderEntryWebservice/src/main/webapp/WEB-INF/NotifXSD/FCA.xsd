@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" 
+ targetNamespace="http://xmlns.oracle.com/communications/schemas/CRMSync" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="FCA">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="AccountNo"  minOccurs="1" maxOccurs="1"/>
+        <xs:element type="xs:string" name="AccountObj"  minOccurs="1" maxOccurs="1"/>
+        <xs:element name="FcaInfo">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="PlanName" minOccurs="1" maxOccurs="1"/>
+              <xs:element type="xs:long" name="ServiceIdentifier" minOccurs="1" maxOccurs="1"/>
+              <xs:element type="xs:long" name="MSISDN" minOccurs="1" maxOccurs="1"/>
+              <xs:element type="xs:string" name="ActionName" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="InstanceId"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

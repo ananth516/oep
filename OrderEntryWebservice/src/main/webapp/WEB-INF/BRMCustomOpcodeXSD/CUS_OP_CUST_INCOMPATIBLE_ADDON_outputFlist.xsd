@@ -1,0 +1,21 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="CUS_OP_CUST_INCOMPATIBLE_ADDON_outputFlist">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="ERROR_CODE"/>
+        <xs:element type="xs:string" name="ERROR_DESCR"/>
+        <xs:element name="CUS_FLD_ADDON_PKG" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="CUS_FLD_ADDON_PLAN_NAME"/>
+              <xs:element type="xs:string" name="PACKAGE_ID"/>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="elem"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:string" name="POID"/>
+        <xs:element type="xs:string" name="STATUS"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

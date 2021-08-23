@@ -1,0 +1,76 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com/OEP/NotificationFramework/Notif/OEPEvents/V1"
+xmlns="http://xmlns.oracle.com/OEP/NotificationFramework/Notif/OEPEvents/V1" xmlns:xsdLocal="http://xmlns.oracle.com/OEP/NotificationFramework/Notif/OEPEvents/V1" elementFormDefault="qualified">
+
+	<xsd:element name="OEPFaultNotificationRequest">
+		<xsd:complexType>
+			<xsd:sequence>				
+				<xsd:element name="OEPOrderAttributes" type="xsdLocal:OrderAttributesType" minOccurs="0"/>
+				<xsd:element name="OEPFaultAttributes" type="xsdLocal:FaultAttributesType" minOccurs="0" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:element name="SMSNotificationRequest">
+		<xsd:complexType>
+			<xsd:sequence>				
+				<xsd:element name="SMSNotificationAttributes" type="xsdLocal:SMSNotificationAttributesType" minOccurs="0" maxOccurs="1"/>				
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="SMSNotificationResponse">
+		<xsd:complexType>
+			<xsd:sequence>				
+				<xsd:element ref="StatusCode" minOccurs="0" maxOccurs="1" />
+				<xsd:element ref="StatusDescription" minOccurs="0" maxOccurs="1" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="OrderAttributesType">
+		<xsd:sequence>
+			<xsd:element ref="OrderId" minOccurs="1" maxOccurs="1" />
+			<xsd:element ref="OrderNumber" minOccurs="1" maxOccurs="1" />
+			<xsd:element ref="OrderOriginatingSystemCode" minOccurs="1" maxOccurs="1" />
+			<xsd:element ref="AccountId" minOccurs="1" maxOccurs="1" />
+			<xsd:element ref="AccountName" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="SMSNotificationAttributesType">
+		<xsd:sequence>
+			<xsd:element name="Attribute" type="xsdLocal:AttributeType" minOccurs="1" maxOccurs="unbounded" />			
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="FaultAttributesType">
+		<xsd:sequence>
+			<xsd:element ref="ErrorCode" minOccurs="1" maxOccurs="1" />
+			<xsd:element ref="ErrorSeverity" minOccurs="1" maxOccurs="1" />
+			<xsd:element ref="ErrorText" minOccurs="1" maxOccurs="1" />
+			<xsd:element ref="TimeOfFailure" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+	<xsd:complexType name="AttributeType">
+		<xsd:sequence>
+			<xsd:element ref="Name" minOccurs="1" maxOccurs="1" />
+			<xsd:element ref="Value" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="OrderId" type="xsd:string" />
+	<xsd:element name="OrderNumber" type="xsd:string" />
+	<xsd:element name="OrderOriginatingSystemCode" type="xsd:string" />
+	<xsd:element name="AccountId" type="xsd:string" />
+	<xsd:element name="AccountName" type="xsd:string" />
+	<xsd:element name="ErrorCode" type="xsd:string" />
+	<xsd:element name="ErrorSeverity" type="xsd:string" />
+	<xsd:element name="ErrorText" type="xsd:string" />
+	<xsd:element name="TimeOfFailure" type="xsd:string" />
+	<xsd:element name="Name" type="xsd:string" />
+	<xsd:element name="Value" type="xsd:string" />
+	<xsd:element name="StatusCode" type="xsd:string" />
+	<xsd:element name="StatusDescription" type="xsd:string" />
+
+</xsd:schema>

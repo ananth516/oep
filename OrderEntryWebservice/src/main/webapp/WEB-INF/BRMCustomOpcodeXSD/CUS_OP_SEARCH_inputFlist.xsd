@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="CUS_OP_SEARCH_inputFlist">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="POID"/>
+        <xs:element ref="PROGRAM_NAME"/>
+        <xs:element ref="USER_NAME"/>
+        <xs:element ref="FLAGS"/>
+        <xs:element ref="PARAM_NAME"/>
+        <xs:element maxOccurs="unbounded" ref="PARAMS"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="POID" type="xs:string"/>
+  <xs:element name="PROGRAM_NAME" type="xs:NCName"/>
+  <xs:element name="USER_NAME" type="xs:NCName"/>
+  <xs:element name="FLAGS" type="xs:integer"/>
+  <xs:element name="PARAM_NAME" type="xs:NCName"/>
+  <xs:element name="PARAMS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="VALUE"/>
+      </xs:sequence>
+      <xs:attribute name="elem" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VALUE" type="xs:integer"/>
+</xs:schema>

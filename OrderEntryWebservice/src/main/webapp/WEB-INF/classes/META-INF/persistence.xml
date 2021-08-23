@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+	<persistence-unit name="persistenceUnit"
+		transaction-type="RESOURCE_LOCAL">
+
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<non-jta-data-source>oep/jdbc/DataSource</non-jta-data-source>
+		<class>com.oracle.oep.order.presistence.model.BulkBatchMaster</class>
+		<class>com.oracle.oep.order.presistence.model.BulkJobMaster</class>
+		<class>com.oracle.oep.order.presistence.model.OepOrder</class>
+		<class>com.oracle.oep.order.presistence.model.OepOrderLine</class>
+		<class>com.oracle.oep.order.presistence.model.OepMilestoneHistory</class>
+
+		<properties>
+			<property name="eclipselink.logging.level" value="FINE" />
+
+			<!-- property name="eclipselink.ddl-generation" value="create-or-extend-tables" /-->
+			<property name="eclipselink.cache.shared.default" value="false"/>
+		</properties>
+
+	</persistence-unit>
+	
+	<persistence-unit name="oapPersistenceUnit"
+		transaction-type="RESOURCE_LOCAL">
+
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<non-jta-data-source>oap/jdbc/DataSource</non-jta-data-source>
+		<class>com.oracle.oep.troubleticket.model.OapCallLogMasterT</class>
+		<class>com.oracle.oep.troubleticket.model.OapWorkOrderMasterT</class>
+		<class>com.oracle.oep.troubleticket.model.OapTicketUpdateHistoryT</class>
+
+		<properties>
+			<property name="eclipselink.logging.level" value="FINE" />
+
+			<!-- property name="eclipselink.ddl-generation" value="create-or-extend-tables" /-->
+		</properties>
+
+	</persistence-unit>
+
+	<persistence-unit name="brmpersistenceUnit"
+		transaction-type="RESOURCE_LOCAL">
+
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<non-jta-data-source>jdbc/BRMDataSource</non-jta-data-source>
+		<class>com.oracle.oep.brm.persistence.model.OEPConfigPlanAttributesT</class>
+		<class>com.oracle.oep.brm.persistence.model.OEPConfigFeaturesT</class>
+		<properties>
+			<property name="eclipselink.cache.shared.default" value="false"/>
+		</properties>
+	</persistence-unit>
+
+</persistence>

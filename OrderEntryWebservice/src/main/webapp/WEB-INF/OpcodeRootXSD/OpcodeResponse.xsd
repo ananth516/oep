@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes/" xmlns:ns="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes/">
+  <xs:element name="opcodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+          <xs:element name="opcodeResponse" form="unqualified" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

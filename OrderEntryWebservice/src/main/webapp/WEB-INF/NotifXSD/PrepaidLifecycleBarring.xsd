@@ -1,0 +1,29 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" 
+  targetNamespace="http://xmlns.oracle.com/communications/schemas/CRMSync" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="PrepaidLifecycleBarring">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="AccountNo"/>
+        <xs:element type="xs:string" name="AccountObj"/>
+        <xs:element type="xs:byte" name="BarringAction"/>
+        <xs:element type="xs:byte" name="BarringLevel"/>
+        <xs:element type="xs:string" name="EmailAddr"/>
+        <xs:element type="xs:int" name="ContactNo"/>
+        <xs:element type="xs:byte" name="SuspendedIndicator"/>
+        <xs:element name="PrepaidLifecycleBarringServices">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="PlanName"/>
+              <xs:element type="xs:string" name="ServiceIdentifier"/>
+              <xs:element type="xs:int" name="MSISDN"/>
+              <xs:element type="xs:string" name="ActionName"/>
+              <xs:element type="xs:byte" name="BarringType"/>
+            </xs:sequence>
+            <xs:attribute type="xs:byte" name="ElementId"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="InstanceId"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

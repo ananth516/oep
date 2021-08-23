@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="CUS_OP_CC_UPDATE_SERVICE_inputFlist">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="POID"/>
+        <xs:element ref="PROGRAM_NAME"/>
+        <xs:element ref="ACCOUNT_NO"/>
+        <xs:element ref="USER_NAME"/>
+        <xs:element ref="CUS_FLD_BARRING_ACTION"/>
+        <xs:element ref="CUS_FLD_BARRING_TYPE"/>
+        <xs:element ref="CUS_FLD_BARRING_LEVEL"/>
+        <xs:element maxOccurs="unbounded" ref="SERVICES"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="POID" type="xs:string"/>
+  <xs:element name="PROGRAM_NAME" type="xs:NCName"/>
+  <xs:element name="ACCOUNT_NO" type="xs:NCName"/>
+  <xs:element name="USER_NAME" type="xs:NCName"/>
+  <xs:element name="CUS_FLD_BARRING_ACTION" type="xs:integer"/>
+  <xs:element name="CUS_FLD_BARRING_TYPE" type="xs:integer"/>
+  <xs:element name="CUS_FLD_BARRING_LEVEL" type="xs:integer"/>
+  <xs:element name="SERVICES">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="SERVICE_TYPE"/>
+        <xs:element ref="LOGIN"/>
+        <xs:element ref="MSISDN"/>
+        <xs:element ref="ACTION"/>
+        <xs:element ref="CUS_FLD_SUSPENSE_DURATION"/>
+        <xs:element ref="ORDER_ID"/>
+        <xs:element ref="DEAL_NAME"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SERVICE_TYPE" type="xs:NCName"/>
+  <xs:element name="LOGIN" type="xs:NCName"/>
+  <xs:element name="MSISDN" type="xs:string"/>
+  <xs:element name="ACTION" type="xs:integer"/>
+  <xs:element name="CUS_FLD_SUSPENSE_DURATION" type="xs:integer"/>
+  <xs:element name="ORDER_ID" type="xs:string"/>
+  <xs:element name="DEAL_NAME" type="xs:string"/>
+</xs:schema>

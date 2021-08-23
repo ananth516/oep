@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:brm="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+  <xs:element name="CUS_OP_CUST_ADD_PLAN_inputFlist">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="brm:POID" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="brm:ACCOUNT_NO" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="brm:CUS_FLD_BA_ACCOUNT_NO" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="brm:CUS_FLD_CA_ACCOUNT_NO" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="brm:PROGRAM_NAME" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="brm:USER_NAME" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="brm:SERVICE_ID" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="brm:MSISDN" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="brm:CUS_FLD_DEVICE_MODEL" maxOccurs="1" minOccurs="0"/>
+        <xs:element ref="brm:CUS_FLD_DEVICE_TYPE" maxOccurs="1" minOccurs="0"/>
+        <xs:element ref="brm:REASON_CODE" maxOccurs="1" minOccurs="0"/>
+        <xs:element ref="brm:CUS_FLD_INSTALLMENT_PLAN" maxOccurs="1" minOccurs="0"/>
+        <xs:element maxOccurs="unbounded" minOccurs="1" ref="brm:PLAN"/>
+        <xs:element ref="brm:DEPOSITS" maxOccurs="unbounded" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="POID" type="xs:string">
+  </xs:element>
+  <xs:element name="ACCOUNT_NO" type="xs:string">
+  </xs:element>
+  <xs:element name="CUS_FLD_BA_ACCOUNT_NO" type="xs:string">
+  </xs:element>
+  <xs:element name="CUS_FLD_CA_ACCOUNT_NO" type="xs:string">
+  </xs:element>
+  <xs:element name="PROGRAM_NAME" type="xs:string">
+  </xs:element>
+  <xs:element name="USER_NAME" type="xs:string">
+  </xs:element>
+  <xs:element name="SERVICE_ID" type="xs:string">
+  </xs:element>
+  <xs:element name="MSISDN" type="xs:string">
+  </xs:element>
+  <xs:element name="PLAN">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="brm:NAME" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="brm:CUS_FLD_OVERRIDEN_PRICE" maxOccurs="1" minOccurs="0"/>
+        <xs:element ref="brm:START_T" maxOccurs="1" minOccurs="0"/>
+        <xs:element ref="brm:END_T" maxOccurs="1" minOccurs="0"/>
+        <xs:element ref="brm:CUS_FLD_PLAN_TYPE" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="brm:PACKAGE_ID" maxOccurs="1" minOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute name="elem" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="CUS_FLD_PLAN_TYPE_ENUM">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>                  
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TYPES_ENUM">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="0"/>
+      <xs:enumeration value="1"/>                  
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="OPTIONS_ENUM">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="0"/>
+      <xs:enumeration value="1"/>                  
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="NAME" type="xs:string">
+  </xs:element>
+  <xs:element name="CUS_FLD_OVERRIDEN_PRICE" type="xs:decimal">
+  </xs:element>
+  <xs:element name="START_T" type="xs:dateTime">
+  </xs:element>
+  <xs:element name="END_T" type="xs:dateTime">
+  </xs:element>
+  <xs:element name="PACKAGE_ID" type="xs:string">
+  </xs:element>
+  <xs:element name="CUS_FLD_PLAN_TYPE" type="brm:CUS_FLD_PLAN_TYPE_ENUM">
+  </xs:element>
+  <xs:element name="DEPOSITS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="brm:RECEIPT_NO" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="brm:CUS_FLD_SERVICE_TYPE" maxOccurs="1" minOccurs="0"/>
+        <xs:element ref="brm:CUS_FLD_COLLECTED_ON" maxOccurs="1" minOccurs="0"/>
+        <xs:element ref="brm:AMOUNT" maxOccurs="1" minOccurs="0"/>
+        <xs:element ref="brm:TYPE" maxOccurs="1" minOccurs="0"/>
+        <xs:element ref="brm:OPTIONS" maxOccurs="1" minOccurs="0"/>
+        <xs:element ref="brm:CUS_FLD_WAIVER_REASON" maxOccurs="1" minOccurs="0"/>
+        <xs:element ref="brm:TYPE_STR" maxOccurs="1" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RECEIPT_NO" type="xs:string">
+   </xs:element>
+  <xs:element name="CUS_FLD_SERVICE_TYPE" type="xs:string">
+  </xs:element>
+  <xs:element name="CUS_FLD_COLLECTED_ON" type="xs:dateTime">
+  </xs:element>
+  <xs:element name="AMOUNT" type="xs:decimal">
+  </xs:element>
+  <xs:element name="TYPE" type="brm:TYPES_ENUM">
+  </xs:element>
+  <xs:element name="OPTIONS" type="brm:OPTIONS_ENUM">
+  </xs:element>
+  <xs:element name="CUS_FLD_WAIVER_REASON" type="xs:string">
+  </xs:element>
+  <xs:element name="TYPE_STR" type="xs:string">
+  </xs:element>
+  <xs:element name="CUS_FLD_DEVICE_MODEL" type="xs:string">
+  </xs:element>
+  <xs:element name="CUS_FLD_DEVICE_TYPE" type="xs:int">
+  </xs:element>
+    <xs:element name="REASON_CODE" type="xs:string">
+  </xs:element>
+    <xs:element name="CUS_FLD_INSTALLMENT_PLAN" type="xs:int">
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	You under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+	       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+	       http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+	<context:property-placeholder location="file:environment.properties" />
+
+	<jpa:repositories base-package="com.oracle.oep.order"
+		entity-manager-factory-ref="oepEntityManagerFactory"
+		transaction-manager-ref="jpaTxManager" />
+	<jpa:repositories base-package="com.oracle.oep.brm"
+		entity-manager-factory-ref="brmEntityManagerFactory"
+		transaction-manager-ref="brmJPATxManager" />
+	<context:component-scan base-package="com.oracle.oep"
+		annotation-config="true"></context:component-scan>
+
+
+	<!-- === Route(s) ==== -->
+	<camel:camelContext id="camelContext"
+		typeConverterStatisticsEnabled="true">
+		<camel:propertyPlaceholder id="properties"
+			location="file:environment.properties" />
+		<camel:routeBuilder ref="orderEntryRoute" />
+		<camel:routeBuilder ref="processSalesOrderRoute" />
+		<camel:routeBuilder ref="updateSalesOrderRoute" />
+		<camel:routeBuilder ref="processManagePortInRoute" />
+		<camel:routeBuilder ref="processBRMSalesOrderRoute" />
+		<camel:routeBuilder ref="troubleTicketServiceRoute" />
+		<camel:routeBuilder ref="createTTRoute" />
+		<camel:routeBuilder ref="viewUsageRoute" />
+		<camel:redeliveryPolicyProfile id="redeliveryPolicyRef"
+			retryAttemptedLogLevel="WARN" maximumRedeliveries="2"
+			redeliveryDelay="50" />
+
+	</camel:camelContext>
+
+	<bean id="myTypeConvertor"
+		class="com.oracle.oep.order.typeConverters.StringToMapTypeConverter">
+
+	</bean>
+	<camel:template id="template" camelContextId="camelContext" />
+
+	<bean id="orderEntryRoute"
+		class="com.oracle.oep.order.server.routes.OrderEntryWebserviceRoute" />
+	<bean id="orderEntryProcessor"
+		class="com.oracle.oep.order.server.processors.OrderEntryWebserviceProcessor">
+	</bean>
+	<bean id="retryOSMOrderProcessor"
+		class="com.oracle.oep.order.server.processors.RetryOSMOrderProcessor">
+	</bean>
+
+
+	<bean id="processManagePortInRoute"
+		class="com.oracle.oep.order.server.routes.ProcessManagePortInOrderRouteBuilder" />
+	<bean id="processSalesOrderRoute"
+		class="com.oracle.oep.order.server.routes.ProcessSalesOrderFulfillmentRoute" />
+	<bean id="processBRMSalesOrderRoute"
+		class="com.oracle.oep.order.server.routes.ProcessBRMSalesOrderFulfillmentRoute" />
+	<bean id="updateSalesOrderRoute"
+		class="com.oracle.oep.order.server.routes.UpdateSalesOrderFulfillmentRoute" />
+	<bean id="troubleTicketServiceRoute"
+		class="com.oracle.oep.troubleticket.route.TroubleTicketServiceRoute" />
+	<bean id="createTTRoute"
+		class="com.oracle.oep.troubleticket.route.CreateTroubleTicketFulfilmentRouteBuilder" />
+
+	<bean id="troubleTicketServiceProcessor"
+		class="com.oracle.oep.troubleticket.processor.TroubleTicketServiceProcessor" />
+
+	<bean id="createTTProcessor"
+		class="com.oracle.oep.troubleticket.processor.CreateTroubleTicketFulfilmentProcessor">
+	</bean>
+
+	<bean id="viewUsageRoute" class="com.oracle.oep.viewusage.route.ViewUsageServiceRoute">
+	</bean>
+	<bean id="viewUsageServiceProcessor"
+		class="com.oracle.oep.viewusage.processor.ViewUsageserviceProcessor">
+		<property name="brmDataSource" ref="brmDataSource"></property>
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+
+	<!-- Quartz2 camel component -->
+	<bean id="quartz" class="org.apache.camel.component.quartz.QuartzComponent" />
+
+
+	<bean id="jmsConfiguration" class="org.apache.camel.component.jms.JmsConfiguration">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="destinationResolver" ref="jndiDestinationResolver" />
+	</bean>
+
+	<!-- A JNDI resolver -->
+	<bean id="jndiDestinationResolver"
+		class="org.springframework.jms.support.destination.JndiDestinationResolver" />
+
+	<jee:jndi-lookup id="jmsConnectionFactory" jndi-name="${jms.connectionFactory}" />
+
+	<bean id="weblogicJMS" class="org.apache.camel.component.jms.JmsComponent">
+
+		<property name="configuration" ref="jmsConfiguration" />
+	</bean>
+
+	<jee:jndi-lookup id="oapDataSource" jndi-name="oap/jdbc/DataSource"
+		expected-type="javax.sql.DataSource" />
+
+	<jee:jndi-lookup id="brmDataSource" jndi-name="jdbc/BRMDataSource"
+		expected-type="javax.sql.DataSource" />
+
+	<jee:jndi-lookup id="oepDataSource" jndi-name="oep/jdbc/DataSource"
+		expected-type="javax.sql.DataSource" />
+
+	<bean id="jpa" class="org.apache.camel.component.jpa.JpaComponent">
+		<property name="entityManagerFactory" ref="oepEntityManagerFactory" />
+		<property name="transactionManager" ref="jpaTxManager" />
+	</bean>
+	<bean id="jpaTxManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="oepEntityManagerFactory" />
+	</bean>
+	<bean id="oepEntityManagerFactory"
+		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="persistenceUnit" />
+	</bean>
+
+	<bean id="brmJpa" class="org.apache.camel.component.jpa.JpaComponent">
+		<property name="entityManagerFactory" ref="brmEntityManagerFactory" />
+		<property name="transactionManager" ref="brmJPATxManager" />
+	</bean>
+	<bean id="brmJPATxManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="brmEntityManagerFactory" />
+	</bean>
+	<bean id="brmEntityManagerFactory"
+		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="brmpersistenceUnit" />
+	</bean>
+
+	<bean id="oapJpa" class="org.apache.camel.component.jpa.JpaComponent">
+		<property name="entityManagerFactory" ref="oapEntityManagerFactory" />
+		<property name="transactionManager" ref="oapJPATxManager" />
+	</bean>
+	<bean id="oapJPATxManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="oapEntityManagerFactory" />
+	</bean>
+	<bean id="oapEntityManagerFactory"
+		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="oapPersistenceUnit" />
+	</bean>
+
+	<!-- === Endpoint mapping ==== -->
+	<bean id="endpointMapping"
+		class="org.apache.camel.component.spring.ws.bean.CamelEndpointMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="validatingInterceptor" />
+				<ref bean="loggingInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- === Interceptors ==== -->
+	<bean id="loggingInterceptor"
+		class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor" />
+
+	<bean id="validatingInterceptor"
+		class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
+		<property name="schema" value="/WEB-INF/OEP_OrderCapture.xsd" />
+		<property name="validateRequest" value="true" />
+		<property name="validateResponse" value="false" />
+	</bean>
+
+	<bean id="ttValidtionInterceptor"
+		class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
+		<property name="schema" value="/WEB-INF/TroubleTicket/troubleTicket.xsd" />
+		<property name="validateRequest" value="true" />
+		<property name="validateResponse" value="false" />
+	</bean>
+
+	<bean id="uvValidtionInterceptor"
+		class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
+		<property name="schema" value="/WEB-INF/viewUsageXSD/viewUsage.xsd" />
+		<property name="validateRequest" value="true" />
+		<property name="validateResponse" value="false" />
+	</bean>
+
+	<bean id="ttEndpointMapping"
+		class="org.apache.camel.component.spring.ws.bean.CamelEndpointMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="ttValidtionInterceptor" />
+				<ref bean="loggingInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="uvEndpointMapping"
+		class="org.apache.camel.component.spring.ws.bean.CamelEndpointMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="uvValidtionInterceptor" />
+				<ref bean="loggingInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- === WSDL exposure ==== -->
+	<bean id="orderentry"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+		<property name="schema">
+			<bean id="xsd" class="org.springframework.xml.xsd.SimpleXsdSchema">
+				<property name="xsd" value="/WEB-INF/OEP_OrderCapture.xsd" />
+			</bean>
+		</property>
+		<property name="portTypeName" value="orderentry" />
+		<property name="locationUri"
+			value="http://localhost:8080/OrderEntryWebservice/orderentry" />
+	</bean>
+
+	<bean id="oepEventNotification"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+		<property name="schema">
+			<bean id="xsd" class="org.springframework.xml.xsd.SimpleXsdSchema">
+				<property name="xsd" value="/WEB-INF/NotifXSD/OEPEventNotification.xsd" />
+			</bean>
+		</property>
+		<property name="portTypeName" value="oepEventNotification" />
+		<property name="locationUri"
+			value="http://localhost:8080/OrderEntryWebservice/oepEventNotification" />
+	</bean>
+
+	<!-- === TroublecTicket WSDL === -->
+	<bean id="troubleTicketService"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+		<property name="schema">
+			<bean id="xsd" class="org.springframework.xml.xsd.SimpleXsdSchema">
+				<property name="xsd" value="/WEB-INF/TroubleTicket/troubleTicket.xsd" />
+			</bean>
+		</property>
+		<property name="portTypeName" value="troubleTicketSerive" />
+		<property name="locationUri"
+			value="http://localhost:8080/OrderEntryWebservice/troubleTicketService" />
+	</bean>
+
+	<!-- === ViewUsage WSDL === -->
+	<bean id="viewUsageService"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+		<property name="schema">
+			<bean id="xsd" class="org.springframework.xml.xsd.SimpleXsdSchema">
+				<property name="xsd" value="/WEB-INF/viewUsageXSD/viewUsage.xsd" />
+			</bean>
+		</property>
+		<property name="portTypeName" value="viewUsageService" />
+		<property name="locationUri"
+			value="http://localhost:8080/OrderEntryWebservice/viewUsageService" />
+	</bean>
+
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="brmDataSource" />
+	</bean>
+</beans>

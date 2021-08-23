@@ -1,0 +1,10 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/communications/ordermanagement" xmlns:ws="http://xmlns.oracle.com/communications/ordermanagement" xmlns:v2="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/SalesOrder/V2">
+  <xs:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/SalesOrder/V2" schemaLocation="OsmEbmOrder.xsd"/>
+  <xs:element name="CreateOrder">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:ProcessSalesOrderFulfillmentEBM"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

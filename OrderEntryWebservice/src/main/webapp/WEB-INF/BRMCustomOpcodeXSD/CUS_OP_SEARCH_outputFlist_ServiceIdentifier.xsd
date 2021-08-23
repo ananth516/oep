@@ -1,0 +1,136 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="CUS_OP_SEARCH_outputFlist">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="POID"/>
+        <xs:element name="RESULTS">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="CUS_FLD_BA_ACCOUNT_NO"/>
+              <xs:element type="xs:string" name="CUS_FLD_CA_ACCOUNT_NO"/>
+              <xs:element name="CUS_FLD_SPENDING_CAP">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:float" name="CUS_FLD_SC_ACTUAL_VAL"/>
+                    <xs:element type="xs:float" name="CUS_FLD_SC_MAX_VAL"/>
+                    <xs:element type="xs:short" name="CUS_FLD_SC_MIN_VAL"/>
+                    <xs:element type="xs:byte" name="STATUS"/>
+                  </xs:sequence>
+                  <xs:attribute type="xs:byte" name="elem"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CUS_FLD_SRVC_ATTRIBUTE">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:byte" name="CUS_FLD_BAD_PIN_COUNT"/>
+                    <xs:element type="xs:string" name="CUS_FLD_DEVICE_MODEL"/>
+                    <xs:element type="xs:byte" name="CUS_FLD_DEVICE_TYPE"/>
+                    <xs:element type="xs:byte" name="CUS_FLD_DIRECTORY_UNLIST"/>
+                    <xs:element type="xs:dateTime" name="CUS_FLD_FIRST_CALL_TIME"/>
+                    <xs:element type="xs:byte" name="CUS_FLD_LCMS_FLAG"/>
+                    <xs:element type="xs:string" name="CUS_FLD_LEGACY_SERVICE_NO"/>
+                    <xs:element type="xs:byte" name="CUS_FLD_MNP_FLAG"/>
+                    <xs:element type="xs:byte" name="CUS_FLD_MOBAPP_FLAG"/>
+                    <xs:element type="xs:byte" name="CUS_FLD_MOBMONEY_FLAG"/>
+                    <xs:element type="xs:byte" name="CUS_FLD_NICE"/>
+                    <xs:element type="xs:string" name="CUS_FLD_NICE_CATEGORY"/>
+                    <xs:element type="xs:string" name="CUS_FLD_OLD_SIM"/>
+                    <xs:element type="xs:byte" name="CUS_FLD_PRBT_FLAG"/>
+                    <xs:element type="xs:string" name="CUS_FLD_PREV_LIFECYCLE_STATE"/>
+                    <xs:element type="xs:string" name="CUS_FLD_PREV_STATUS"/>
+                    <xs:element type="xs:string" name="CUS_FLD_PRIVATE_NUMBER"/>
+                    <xs:element type="xs:byte" name="CUS_FLD_QTQR_FLAG"/>
+                    <xs:element type="xs:byte" name="CUS_FLD_SELFCARE_FLAG"/>
+                    <xs:element type="xs:string" name="CUS_FLD_SENDER_ID"/>
+                    <xs:element type="xs:byte" name="CUS_FLD_SENDER_ID_TYPE"/>
+                    <xs:element type="xs:dateTime" name="CUS_FLD_UNLISTED_DATE"/>
+                    <xs:element type="xs:int" name="PUK1"/>
+                    <xs:element type="xs:int" name="PUK2"/>
+                    <xs:element type="xs:string" name="USER_NAME"/>
+                  </xs:sequence>
+                  <xs:attribute type="xs:byte" name="elem"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CUS_FLD_SUSPENSION_STATUS">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:dateTime" name="END_T"/>
+                    <xs:element type="xs:string" name="ORDER_ID"/>
+                    <xs:element type="xs:byte" name="REASON"/>
+                    <xs:element type="xs:dateTime" name="START_T"/>
+                    <xs:element type="xs:byte" name="STATUS"/>
+                  </xs:sequence>
+                  <xs:attribute type="xs:byte" name="elem"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element type="xs:string" name="ACCOUNT_NO"/>
+              <xs:element name="ALIAS_LIST">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:long" name="IMSI"/>
+                    <xs:element type="xs:integer" name="SIM"/>
+                  </xs:sequence>
+                  <xs:attribute type="xs:byte" name="elem"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CONTRACTS">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:dateTime" name="CUS_FLD_CONTRACT_END_T"/>
+                    <xs:element type="xs:dateTime" name="CUS_FLD_CONTRACT_START_T"/>
+                    <xs:element type="xs:string" name="CUS_FLD_PLAN_NAME"/>
+                    <xs:element type="xs:byte" name="AMOUNT"/>
+                  </xs:sequence>
+                  <xs:attribute type="xs:byte" name="elem"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DEPOSITS" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="CUS_FLD_CA_ACCOUNT_NO"/>
+                    <xs:element type="xs:string" name="CUS_FLD_CEASED_COMMENTS"/>
+                    <xs:element type="xs:dateTime" name="CUS_FLD_COLLECTED_ON"/>
+                    <xs:element type="xs:string" name="CUS_FLD_DEPOSIT_WAIVER"/>
+                    <xs:element type="xs:string" name="CUS_FLD_SERVICE_TYPE"/>
+                    <xs:element type="xs:string" name="CUS_FLD_WAIVER_REASON"/>
+                    <xs:element type="xs:string" name="ACCOUNT_NO"/>
+                    <xs:element type="xs:short" name="AMOUNT"/>
+                    <xs:element type="xs:string" name="DEPOSIT_ID"/>
+                    <xs:element type="xs:string" name="GRANTOR_OBJ"/>
+                    <xs:element type="xs:long" name="MSISDN"/>
+                    <xs:element type="xs:string" name="RECEIPT_NO"/>
+                    <xs:element type="xs:byte" name="STATUS"/>
+                    <xs:element type="xs:byte" name="TYPE"/>
+                    <xs:element type="xs:string" name="TYPE_STR"/>
+                  </xs:sequence>
+                  <xs:attribute type="xs:byte" name="elem" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element type="xs:long" name="DEVICE_ID"/>
+              <xs:element type="xs:byte" name="LIFECYCLE_STATE"/>
+              <xs:element type="xs:byte" name="PAY_TYPE"/>
+              <xs:element name="PLAN">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="CUS_FLD_COM_PLAN_NAME"/>
+                    <xs:element type="xs:byte" name="CUS_FLD_PLAN_TYPE"/>
+                    <xs:element type="xs:dateTime" name="END_T"/>
+                    <xs:element type="xs:string" name="NAME"/>
+                    <xs:element type="xs:short" name="PACKAGE_ID"/>
+                    <xs:element type="xs:dateTime" name="START_T"/>
+                    <xs:element type="xs:byte" name="STATUS"/>
+                  </xs:sequence>
+                  <xs:attribute type="xs:byte" name="elem"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element type="xs:string" name="SERVICE_ID"/>
+              <xs:element type="xs:short" name="STATUS"/>
+            </xs:sequence>
+            <xs:attribute type="xs:byte" name="elem"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:byte" name="STATUS"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

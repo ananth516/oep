@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:brm="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+  <xs:element name="CUS_OP_CUST_CANCEL_PLAN_inputFlist">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="brm:POID" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="brm:ACCOUNT_NO" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="brm:PROGRAM_NAME" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="brm:USER_NAME" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="brm:SERVICE_ID" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="brm:MSISDN" maxOccurs="1" minOccurs="1"/>
+        <xs:element maxOccurs="unbounded" minOccurs="1" ref="brm:PLAN"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="POID" type="xs:string">
+  </xs:element>
+  <xs:element name="ACCOUNT_NO" type="xs:string">
+  </xs:element>
+  <xs:element name="PROGRAM_NAME" type="xs:string">
+  </xs:element>
+  <xs:element name="USER_NAME" type="xs:string">
+  </xs:element>
+  <xs:element name="SERVICE_ID" type="xs:string">
+  </xs:element>
+  <xs:element name="MSISDN" type="xs:string">
+  </xs:element>
+  <xs:element name="PLAN">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="brm:NAME" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="brm:PACKAGE_ID" maxOccurs="1" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="elem" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NAME" type="xs:string">
+  </xs:element>
+  <xs:element name="PACKAGE_ID" type="xs:int">
+  </xs:element> 
+</xs:schema>

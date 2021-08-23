@@ -1,0 +1,58 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema elementFormDefault="qualified"
+	targetNamespace="http://xmlns.oracle.com/communications/schemas/CRMSync"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://xmlns.oracle.com/communications/schemas/CRMSync">
+	<xsd:element name="CollectionsActionBarring">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="BarringAction" minOccurs="1"
+					maxOccurs="1" />
+				<xsd:element ref="BarringLevel" minOccurs="0" maxOccurs="1" />
+				<xsd:element ref="AccountNo" minOccurs="0" maxOccurs="1" />
+				<xsd:element ref="CollectionNotifyContacts" minOccurs="0"
+					maxOccurs="unbounded" />
+				<xsd:element ref="Collservices" minOccurs="0" maxOccurs="unbounded" />
+			</xsd:sequence>
+			<xsd:attribute name="InstanceId" type="xsd:string" use="required" />
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CollectionNotifyContacts">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="EmailAddress" minOccurs="0" maxOccurs="1" />
+				<xsd:element ref="Phone" minOccurs="0" maxOccurs="1" />
+				<xsd:element ref="FirstName" minOccurs="0" maxOccurs="1" />
+				<xsd:element ref="LastName" minOccurs="0" maxOccurs="1" />
+			</xsd:sequence>
+			<xsd:attribute name="ElementId" type="xsd:string" use="required" />
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Collservices">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="PlanName" minOccurs="0" maxOccurs="1" />
+				<xsd:element ref="ServiceIdentifier" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element ref="Msisdn" minOccurs="0" maxOccurs="1" />
+				<xsd:element ref="BarringType" minOccurs="0"
+					maxOccurs="1" />
+					<xsd:element ref="Action" minOccurs="0"
+					maxOccurs="1" />
+			</xsd:sequence>
+			<xsd:attribute name="ElementId" type="xsd:string" use="required" />
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BarringAction" type="xsd:string" />
+	<xsd:element name="BarringLevel" type="xsd:string" />
+	<xsd:element name="AccountNo" type="xsd:string" />
+	<xsd:element name="EmailAddress" type="xsd:string" />
+	<xsd:element name="Phone" type="xsd:string" />
+	<xsd:element name="FirstName" type="xsd:string" />
+	<xsd:element name="LastName" type="xsd:string" />
+	<xsd:element name="PlanName" type="xsd:string" />
+	<xsd:element name="ServiceIdentifier" type="xsd:string" />
+	<xsd:element name="Msisdn" type="xsd:string" />
+	<xsd:element name="BarringType" type="xsd:string" />
+	<xsd:element name="Action" type="xsd:string" />
+</xsd:schema>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+       elementFormDefault="qualified"
+       targetNamespace="http://xmlns.oracle.com/OEP/ViewUsage/V1"
+       xmlns:brm="http://xmlns.oracle.com/OEP/ViewUsage/V1">
+       <xs:element
+              name="CUS_OP_SUBSCRIPTION_VIEW_USAGE_inputFlistRequest">
+             <xs:complexType>
+                    <xs:sequence>
+                          <xs:element ref="brm:POID" />
+                          <xs:element ref="brm:CUS_FLD_SERVICE_IDENTIFIER" />
+                          <xs:element ref="brm:USAGE_CATEGORY" />
+                          <xs:element ref="brm:PROGRAM_NAME" />
+                          <xs:element ref="brm:USER_NAME" />
+                          <xs:element ref="brm:USAGE_END_T" />
+                          <xs:element ref="brm:USAGE_START_T" />
+                    </xs:sequence>
+             </xs:complexType>
+       </xs:element>
+       <xs:element name="POID" type="xs:string" />
+       <xs:element name="CUS_FLD_SERVICE_IDENTIFIER"
+             type="xs:string" />
+       <xs:element name="USAGE_CATEGORY" type="xs:int" />
+       <xs:element name="PROGRAM_NAME" type="xs:string" />
+       <xs:element name="USER_NAME" type="xs:string" />
+       <xs:element name="USAGE_END_T" type="xs:int" />
+       <xs:element name="USAGE_START_T" type="xs:int" />
+       <xs:element
+              name="CUS_OP_SUBSCRIPTION_VIEW_USAGE_outputFlistResponse">
+             <xs:complexType>
+                    <xs:sequence>
+                          <xs:element ref="brm:POID" />
+                          <xs:element ref="brm:STATUS" />
+                          <xs:element ref="brm:USAGE_RECORDS" />
+                    </xs:sequence>
+             </xs:complexType>
+       </xs:element>
+       <xs:element name="STATUS" type="xs:int" />
+       <xs:element name="USAGE_RECORDS">
+             <xs:complexType>
+                    <xs:sequence>
+                          <xs:element ref="brm:EVENT_NO" />
+                          <xs:element ref="brm:DESCR" />
+                          <xs:element ref="brm:USAGE_TYPE" />
+                          <xs:element ref="brm:CUS_FLD_UNIT_NAME" />
+                          <xs:element ref="brm:START_T" />
+                          <xs:element ref="brm:END_T" />
+                          <xs:element ref="brm:ORIGIN_SID" />
+                          <xs:element ref="brm:LOC_AREA_CODE" />
+                          <xs:element ref="brm:TERMINATE_CAUSE" />
+                          <xs:element ref="brm:CALLED_TO" />
+                          <xs:element ref="brm:QUANTITY" />
+                          <xs:element ref="brm:AMOUNT" />
+                          <xs:element ref="brm:IMPACT_CATEGORY" />
+                          <xs:element ref="brm:CHARGES" />
+                    </xs:sequence>
+                    <xs:attribute name="elem" use="required"
+                          type="xs:int" />
+             </xs:complexType>
+       </xs:element>
+       <xs:element name="EVENT_NO" type="xs:string" />
+       <xs:element name="DESCR" type="xs:string" />
+       <xs:element name="USAGE_TYPE" type="xs:string" />
+       <xs:element name="CUS_FLD_UNIT_NAME" type="xs:string" />
+       <xs:element name="START_T" type="xs:int" />
+       <xs:element name="END_T" type="xs:int" />
+       <xs:element name="ORIGIN_SID">
+             <xs:complexType />
+       </xs:element>
+       <xs:element name="LOC_AREA_CODE">
+             <xs:complexType />
+       </xs:element>
+       <xs:element name="TERMINATE_CAUSE" type="xs:int" />
+       <xs:element name="CALLED_TO" type="xs:int" />
+       <xs:element name="IMPACT_CATEGORY" type="xs:string" />
+       <xs:element name="USAGE_CLASS" type="xs:string" />
+       <xs:element name="CHARGES">
+             <xs:complexType>
+                    <xs:sequence>
+                          <xs:element ref="brm:QUANTITY" />
+                          <xs:element ref="brm:AMOUNT" />
+                          <xs:element ref="brm:RESOURCE_ID" />
+                          <xs:element ref="brm:OFFER_NAME" />
+                    </xs:sequence>
+                    <xs:attribute name="elem" use="required"
+                          type="xs:int" />
+             </xs:complexType>
+       </xs:element>
+       <xs:element name="RESOURCE_ID" type="xs:int" />
+       <xs:element name="OFFER_NAME" type="xs:string" />
+       <xs:element name="QUANTITY" type="xs:int" />
+       <xs:element name="AMOUNT" type="xs:int" />
+</xs:schema>

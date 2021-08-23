@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<brm:CUS_OP_CUST_VALIDATE_CHANGE_PLAN_outputFlist xmlns:brm="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes CUS_OP_CUST_VALIDATE_CHANGE_PLAN_outputFlist.xsd ">
+  <brm:ERROR_CODE>0</brm:ERROR_CODE>
+  <brm:ERROR_DESCR>brm:ERROR_DESCR</brm:ERROR_DESCR>
+  <brm:POID>brm:POID</brm:POID>
+  <brm:STATUS>0</brm:STATUS>
+</brm:CUS_OP_CUST_VALIDATE_CHANGE_PLAN_outputFlist>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:brm="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+  <xs:element name="CUS_OP_CUST_VALIDATE_CHANGE_PLAN_outputFlist">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="brm:ERROR_CODE"/>
+        <xs:element ref="brm:ERROR_DESCR"/>
+        <xs:element ref="brm:POID"/>
+        <xs:element ref="brm:STATUS"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ERROR_CODE" type="xs:integer"/>
+  <xs:element name="ERROR_DESCR" type="xs:string"/>
+  <xs:element name="POID" type="xs:string"/>
+  <xs:element name="STATUS" type="xs:integer"/>
+</xs:schema>

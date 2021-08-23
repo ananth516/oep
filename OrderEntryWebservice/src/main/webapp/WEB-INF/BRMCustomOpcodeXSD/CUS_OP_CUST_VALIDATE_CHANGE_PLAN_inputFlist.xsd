@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:b="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+  <xs:element name="CUS_OP_CUST_VALIDATE_CHANGE_PLAN_inputFlist">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="b:POID"/>
+        <xs:element ref="b:ACCOUNT_NO"/>
+        <xs:element ref="b:PROGRAM_NAME"/>
+        <xs:element ref="b:USER_NAME"/>
+        <xs:element ref="b:SERVICE_ID"/>
+        <xs:element ref="b:NAME"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="POID" type="xs:string"/>
+  <xs:element name="ACCOUNT_NO" type="xs:NCName"/>
+  <xs:element name="PROGRAM_NAME" type="xs:NCName"/>
+  <xs:element name="USER_NAME" type="xs:NCName"/>
+  <xs:element name="SERVICE_ID" type="xs:integer"/>
+  <xs:element name="NAME" type="xs:NCName"/>
+</xs:schema>

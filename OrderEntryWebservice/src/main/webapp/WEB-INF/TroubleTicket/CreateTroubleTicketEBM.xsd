@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid Technologies Online Tools 1.0 (https://www.liquid-technologies.com) -->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/TroubleTicket/V2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="CreateTroubleTicketEBM">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="DataArea">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TroubleTicketEBM">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="TroubleTicketID" />
+                    <xs:element name="Action" type="xs:string" />
+                    <xs:element name="Channel" type="xs:string" />
+                    <xs:element name="CallArea" type="xs:string" />
+                    <xs:element name="OrderName" type="xs:string" />
+                    <xs:element name="ServiceNumber" type="xs:string"/>
+                    <xs:element name="CallCategory" type="xs:string" />
+                    <xs:element name="CallSubCategory" type="xs:string" />
+                    <xs:element name="CallActionType" type="xs:string" />
+                    <xs:element name="AccountNumber" type="xs:string" />
+                    <xs:element name="ServiceType" type="xs:string" />
+                    <xs:element name="Priority" type="xs:string" />
+                    <xs:element name="CallBack" type="xs:string"/>
+                    <xs:element name="Remarks" type="xs:string"/>
+                    <xs:element name="ContactDateTime" type="xs:dateTime" />
+                    <xs:element name="OrderID" type="xs:string" />
+                    <xs:element name="FailureCode" type="xs:string" />
+                    <xs:element name="FailureDescription" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

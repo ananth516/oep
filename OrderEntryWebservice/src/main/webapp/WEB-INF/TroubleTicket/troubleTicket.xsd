@@ -1,0 +1,65 @@
+<xsd:schema xmlns="http://xmlns.oracle.com/OEP/TroubleTicketService/V1" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns:xsdLocal="http://xmlns.oracle.com/OEP/TroubleTicketService/V1" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/OEP/TroubleTicketService/V1">
+	<xsd:element name="CreateTroubleTicketRequest">
+	    <xsd:complexType>
+	        <xsd:sequence>
+	            <xsd:element ref="xsdLocal:Action" minOccurs="1" maxOccurs="1"/>
+	       		<xsd:element ref="xsdLocal:Channel" minOccurs="0" maxOccurs="1"/>
+	       		<xsd:element ref="xsdLocal:CallType" minOccurs="1" maxOccurs="1"/>
+	            <xsd:element ref="xsdLocal:CallArea" minOccurs="1" maxOccurs="1"/>
+	            <xsd:element ref="xsdLocal:CallCategory" minOccurs="1" maxOccurs="1"/>
+	            <xsd:element ref="xsdLocal:CallSubCategory" minOccurs="1" maxOccurs="1"/>
+	            <xsd:element ref="xsdLocal:CallActionType" minOccurs="1" maxOccurs="1"/>
+	            <xsd:element ref="xsdLocal:ServiceAccount" minOccurs="0" maxOccurs="1"/>
+	            <xsd:element ref="xsdLocal:BillingAccount" minOccurs="1" maxOccurs="1"/>
+	            <xsd:element ref="xsdLocal:CustomerAccount" minOccurs="0" maxOccurs="1"/>
+	            <xsd:element ref="xsdLocal:ServiceNo" minOccurs="1" maxOccurs="1"/>
+	            <xsd:element ref="xsdLocal:ServiceType" minOccurs="1" maxOccurs="1"/>
+	            <xsd:element ref="xsdLocal:Priority" minOccurs="1" maxOccurs="1"/>
+	            <xsd:element ref="xsdLocal:CallBack" minOccurs="0" maxOccurs="1"/>
+	            <xsd:element ref="xsdLocal:Remarks" minOccurs="1" maxOccurs="1"/>
+	            <xsd:element ref="xsdLocal:IssueDateTime" minOccurs="0" maxOccurs="1"/>
+	            <xsd:element ref="xsdLocal:OrderId" minOccurs="1" maxOccurs="1"/>
+	            <xsd:element ref="xsdLocal:FailureCode" minOccurs="1" maxOccurs="1"/>
+	            <xsd:element ref="xsdLocal:FailureDescription" minOccurs="0" maxOccurs="1"/>						
+	        </xsd:sequence>
+	    </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CreateTroubleTicketResponse">
+	    <xsd:complexType>
+	        <xsd:sequence>
+	            <xsd:element ref="xsdLocal:TicketId" minOccurs="0" maxOccurs="1"/>
+	            <xsd:element ref="xsdLocal:OrderId" minOccurs="1" maxOccurs="1"/>	            
+         		<xsd:element ref="xsdLocal:ResponseCode"/>
+         		<xsd:element ref="xsdLocal:ResponseDesscription"/>
+	        </xsd:sequence>
+	    </xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="Action" type="xsd:string"/>
+	<xsd:element name="Channel" type="xsd:string"/>
+	<xsd:element name="CallType" type="xsd:string"/>
+	<xsd:element name="CallArea" type="xsd:string"/>
+	<xsd:element name="CallCategory" type="xsd:string"/>
+	<xsd:element name="CallSubCategory" type="xsd:string"/>
+	<xsd:element name="CallActionType" type="xsd:string"/>
+	<xsd:element name="ServiceAccount" type="xsd:string"/>
+	<xsd:element name="BillingAccount" type="xsd:string"/>
+	<xsd:element name="CustomerAccount" type="xsd:string"/>
+	<xsd:element name="ServiceNo" type="xsd:string"/>
+	<xsd:element name="ServiceType" type="xsd:string"/>
+	<xsd:element name="Priority" type="xsd:string"/>
+	<xsd:element name="CallBack" type="xsd:string"/>
+	<xsd:element name="Remarks" type="xsd:string"/>
+	<xsd:element name="IssueDateTime" type="xsd:dateTime"/>
+	<xsd:element name="OrderId" type="xsd:string"/>
+	<xsd:element name="FailureCode" type="xsd:string"/>
+	<xsd:element name="FailureDescription" type="xsd:string"/>
+	
+	<xsd:element name="TicketId" type="xsd:long"/>
+	<xsd:element name="ResponseCode" type="xsd:string"/>
+	<xsd:element name="ResponseDesscription" type="xsd:string"/>     
+</xsd:schema>
+    
+    

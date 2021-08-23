@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" 
+ targetNamespace="http://xmlns.oracle.com/communications/schemas/CRMSync" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="NotifAddOnSubscription">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="AccountNo"  minOccurs="1" maxOccurs="1"/>
+        <xs:element type="xs:string" name="AccountObj"  minOccurs="1" maxOccurs="1"/>
+        <xs:element type="xs:long" name="ServiceNo"  minOccurs="1" maxOccurs="1"/>
+        <xs:element type="xs:string" name="EventDescr"  minOccurs="1" maxOccurs="1"/>
+        <xs:element type="xs:string" name="Channel"  minOccurs="1" maxOccurs="1"/>
+        <xs:element type="xs:string" name="Message"  minOccurs="1" maxOccurs="1"/>
+        <xs:element type="xs:string" name="OrderSource"  minOccurs="1" maxOccurs="1"/>
+        <xs:element name="NotifAddOnSubscriptionEvents">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="AddOnPlanName" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute type="xs:byte" name="ElementId"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="InstanceId"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

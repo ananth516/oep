@@ -1,0 +1,1147 @@
+<xsd:schema xmlns="http://xmlns.oracle.com/OEP/OrderManagement/Order/V1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsdLocal="http://xmlns.oracle.com/OEP/OrderManagement/Order/V1"
+	elementFormDefault="qualified"
+	targetNamespace="http://xmlns.oracle.com/OEP/OrderManagement/Order/V1">
+	<xsd:element name="OrderEntryRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ProcessAddOrder" type="xsdLocal:ProcessAddOrderType"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="ProcessModifyOrder" type="xsdLocal:ProcessModifyOrderType"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="ProcessSuspendOrResumeOrder" type="xsdLocal:ProcessSuspendOrderType"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="ProcessDisconnectOrder" type="xsdLocal:ProcessDisconnectOrderType"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="ProcessNumberReleaseOrder"
+					type="xsdLocal:ProcessNumberReleaseOrderType" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="ProcessCugOrder" type="xsdLocal:ProcessCugOrderType"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="ProcessManagePortInOrder"
+					type="xsdLocal:ProcessManagePortInOrderType" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="ProcessQueryOrder" type="xsdLocal:ProcessQueryOrderType"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="ProcessQueryOrderDetails"
+					type="xsdLocal:ProcessQueryOrderDetailsType" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="ProcessChangePlan" type="xsdLocal:ProcessChangePlanReqType"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="ProcessAddOnManagment" type="xsdLocal:ProcessAddOnManagmentType"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="ProcessCallDivertManagment" type="xsdLocal:ProcessCallDivertReqType"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="ProcessCollectionBarring"
+					type="xsdLocal:ProcessCollectionBarringReqType" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="ProcessStartCancelOrder" type="xsdLocal:ProcessStartCancelOrderType"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="ProcessUpdateServiceSuspensionDate"
+					type="xsdLocal:ProcessUpdateServiceSuspensionDateType" minOccurs="0"
+					maxOccurs="1" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="OrderEntryResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ProcessOrderResponse" type="xsdLocal:ProcessOrderResponseType" />
+				<xsd:element name="ProcessQueryOrderResponse"
+					type="xsdLocal:ProcessQueryOrderResponseType" />
+				<xsd:element name="ProcessQueryOrderDetailsResponse"
+					type="xsdLocal:ProcessQueryOrderDetailsResponseType" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="RetryOSMOrderRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="OrderId" minOccurs="1" maxOccurs="1" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="RetryOSMOrderResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="StatusCode" type="xsd:string" />
+				<xsd:element name="StatusDescription" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ProcessCollectionBarringReqType">
+		<xsd:sequence>
+			<xsd:element ref="AccountNo" minOccurs="1" maxOccurs="1" />
+			<xsd:element ref="BarringAction" minOccurs="1" maxOccurs="1" />
+			<xsd:element ref="BarringLevel" minOccurs="1" maxOccurs="1" />
+			<xsd:element ref="Email" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="ContactNo" minOccurs="0" maxOccurs="1" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderUserId" />
+			<xsd:element name="Services" type="xsdLocal:BarringServicesType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ChannelName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ChannelTrackingId" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SuspendedIndicator" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="OrderAction" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessCallDivertReqType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ServiceNo" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="ForwardToNumber"
+				type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="1" name="ServiceAction"
+				type="xsdLocal:CallDivertActionEnumType" />
+			<xsd:element maxOccurs="1" minOccurs="1" name="ChannelName"
+				type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ChannelTrackingId" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessChangePlanReqType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ServiceIdentifier" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="1" name="OldPackageName"
+				type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="1" name="NewPackageName"
+				type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="DepositReceiptNo" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="CollectedOn" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="DepositAmount" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="DepositType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SpendingCapMin" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SpendingCapMax" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SpendingCap" />
+			<xsd:element maxOccurs="1" minOccurs="1" name="ChannelName"
+				type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ChannelTrackingId" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessAddOnManagmentType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ServiceIdentifier" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="LoginId"
+				type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="BasePackageName"
+				type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="1" name="AddOnPackageName"
+				type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="OverridenPrice" />
+			<xsd:element maxOccurs="1" minOccurs="1" name="Action"
+				type="xsdLocal:AddonActionEnum" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="DeviceMake" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="DeviceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="DepositReceiptNo" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="CollectedOn" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="DepositAmount" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="DepositType" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="BillingIndicator"
+				type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="1" name="ChannelName"
+				type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ChannelTrackingId" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessQueryOrderType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="0" ref="AccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="OrderId" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="OrderStatus" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				ref="OrderCreatedDateMin" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				ref="OrderCreatedDateMax" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ServiceNo" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="OrderType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessQueryOrderDetailsType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="0" ref="OrderId" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessNumberReleaseOrderType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="MsIsdn" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ChannelTrackingId" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessManagePortInOrderType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="0" name="OrderId"
+				type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="MsIsdn" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ChannelTrackingId" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessStartCancelOrderType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="OrderId"
+				type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ServiceIdentifier" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ChannelTrackingId" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessUpdateServiceSuspensionDateType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="0" name="OrderId"
+				type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ServiceIdentifier" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="SuspensionDuration" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="DealName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderResumeDate" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="OrderUserId" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="ChannelName"
+				type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ChannelTrackingId" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessCugOrderType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="CugId" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="BAAccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="CugAction" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ServiceNumber" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ShortNumberAction" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ShortNumber" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="OldShortNumber" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ChannelTrackingId" />
+			<xsd:element maxOccurs="1" minOccurs="1" name="ChannelName"
+				type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessAddOrderType">
+		<xsd:sequence>
+			<xsd:element name="ListOfOEPOrder" type="xsdLocal:ListOfOEPOrderAddType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessModifyOrderType">
+		<xsd:sequence>
+			<xsd:element name="ListOfOEPOrder" type="xsdLocal:ListOfOEPOrderModifyType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessSuspendOrderType">
+		<xsd:sequence>
+			<xsd:element name="ListOfOEPOrder" type="xsdLocal:ListOfOEPOrderSuspendType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessDisconnectOrderType">
+		<xsd:sequence>
+			<xsd:element name="ListOfOEPOrder" type="xsdLocal:ListOfOEPOrderDisconnectType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfOEPOrderAddType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="OEPOrder"
+				type="xsdLocal:AddOrderServiceType" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListOfOEPOrderModifyType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="OEPOrder"
+				type="xsdLocal:ModifyOrderServiceType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfOEPOrderSuspendType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="2" minOccurs="1" name="OEPOrder"
+				type="xsdLocal:SuspendOrderServiceType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfOEPOrderDisconnectType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="OEPOrder"
+				type="xsdLocal:DisconnectOrderServiceType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AddOrderServiceType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="0" name="MobileService"
+				type="xsdLocal:AddOrderMobileType" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="MobileBBService"
+				type="xsdLocal:AddOrderMobileBBType" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="ShortCodeService"
+				type="xsdLocal:AddOrderShortCodeType" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="M2MService"
+				type="xsdLocal:AddOrderM2MType" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="BulkSMSService"
+				type="xsdLocal:AddOrderBulkSMSType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ModifyOrderServiceType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="0" name="MobileService"
+				type="xsdLocal:ModifyOrderMobileServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="MobileBBService"
+				type="xsdLocal:ModifyOrderMobileBBServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="ShortCodeService"
+				type="xsdLocal:ModifyOrderShortCodeServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="M2MService"
+				type="xsdLocal:ModifyOrderM2MServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="BulkSMSService"
+				type="xsdLocal:ModifyOrderBulkSMSServiceType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SuspendOrderServiceType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="0" name="MobileService"
+				type="xsdLocal:SuspendOrderMobileServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="MobileBBService"
+				type="xsdLocal:SuspendOrderMobileBBServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="MobileShortCodeService" type="xsdLocal:SuspendOrderMobileShortCodeServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="M2MService"
+				type="xsdLocal:SuspendOrderM2MServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="BulkSMSService"
+				type="xsdLocal:SuspendOrderBulkSMSServiceType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SuspendOrderMobileServiceType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="ServiceDetails"
+				type="xsdLocal:SuspendDisconnectOrderAllServiceType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SuspendOrderMobileBBServiceType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="ServiceDetails"
+				type="xsdLocal:SuspendDisconnectOrderAllServiceType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SuspendOrderMobileShortCodeServiceType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="ServiceDetails"
+				type="xsdLocal:SuspendDisconnectOrderAllServiceType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SuspendOrderM2MServiceType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="ServiceDetails"
+				type="xsdLocal:SuspendDisconnectOrderAllServiceType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SuspendOrderBulkSMSServiceType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="ServiceDetails"
+				type="xsdLocal:SuspendDisconnectOrderAllServiceType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DisconnectOrderServiceType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="0" name="MobileService"
+				type="xsdLocal:DisconnectOrderMobileServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="MobileBBService"
+				type="xsdLocal:DisconnectOrderMobileBBServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="MobileShortCodeService" type="xsdLocal:DisconnectOrderMobileShortCodeServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="M2MService"
+				type="xsdLocal:DisconnectOrderM2MServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="BulkSMSService"
+				type="xsdLocal:DisconnectOrderBulkSMSServiceType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DisconnectOrderMobileServiceType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="ServiceDetails"
+				type="xsdLocal:SuspendDisconnectOrderAllServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="PortType" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				ref="EarlyTerminationFlag" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="WaveOff" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="WaveOffReason" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="TerminationCharge" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DisconnectOrderMobileBBServiceType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="ServiceDetails"
+				type="xsdLocal:SuspendDisconnectOrderAllServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="PortType" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				ref="EarlyTerminationFlag" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="WaveOff" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="WaveOffReason" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="TerminationCharge" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DisconnectOrderMobileShortCodeServiceType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="ServiceDetails"
+				type="xsdLocal:SuspendDisconnectOrderAllServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				ref="EarlyTerminationFlag" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="WaveOff" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="WaveOffReason" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="TerminationCharge" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DisconnectOrderM2MServiceType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="ServiceDetails"
+				type="xsdLocal:SuspendDisconnectOrderAllServiceType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DisconnectOrderBulkSMSServiceType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="ServiceDetails"
+				type="xsdLocal:SuspendDisconnectOrderAllServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				ref="EarlyTerminationFlag" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="WaveOff" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="WaveOffReason" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="TerminationCharge" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SuspendDisconnectOrderAllServiceType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="0" ref="AccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ServiceIdentifier" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ServiceNo" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="OrderName" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="Action" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="Reason" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				ref="ServiceSuspensionDescription" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="DealName" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="TerminationNotes" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SuspensionDuration" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="OrderUserId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ChannelTrackingId" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="BasePackageName"
+				type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ModifyOrderMobileServiceType">
+		<xsd:sequence>
+			<xsd:element name="ChangePlan" type="xsdLocal:ChangePlanOrderType"
+				maxOccurs="1" minOccurs="0" />
+			<xsd:element name="ChangeSim" type="xsdLocal:ChangeSIMOrderType"
+				maxOccurs="1" minOccurs="0" />
+			<xsd:element name="ChangeMsIsdn" type="xsdLocal:ChangeMsIsdnOrderType"
+				maxOccurs="1" minOccurs="0" />
+			<xsd:element name="AddRemoveAddon" type="xsdLocal:ChangeAddOnOrderType"
+				maxOccurs="1" minOccurs="0" />
+			<xsd:element name="Fca" type="xsdLocal:FcaOrderType"
+				maxOccurs="1" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ModifyOrderM2MServiceType">
+		<xsd:sequence>
+			<xsd:element name="ChangeSim" type="xsdLocal:ChangeSIMOrderType" />
+			<xsd:element name="AddRemoveAddon" type="xsdLocal:ChangeAddOnOrderType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ModifyOrderBulkSMSServiceType">
+		<xsd:sequence>
+			<xsd:element name="ChangeDetails"
+				type="xsdLocal:ChangeBulkSMSDetailsOrderType" maxOccurs="1"
+				minOccurs="0" />
+			<xsd:element name="ChangePlan" type="xsdLocal:ChangePlanOrderType"
+				maxOccurs="1" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ModifyOrderMobileBBServiceType">
+		<xsd:sequence>
+			<xsd:element name="ChangePlan" type="xsdLocal:ChangePlanOrderType"
+				maxOccurs="1" minOccurs="0" />
+			<xsd:element name="ChangeSim" type="xsdLocal:ChangeSIMOrderType"
+				maxOccurs="1" minOccurs="0" />
+			<xsd:element name="ChangeMsIsdn" type="xsdLocal:ChangeMsIsdnOrderType"
+				maxOccurs="1" minOccurs="0" />
+			<xsd:element name="AddRemoveAddon" type="xsdLocal:ChangeAddOnOrderType"
+				maxOccurs="1" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ModifyOrderShortCodeServiceType">
+		<xsd:sequence>
+			<xsd:element name="ChangePlan" type="xsdLocal:ChangePlanShortCodeOrderType"
+				maxOccurs="1" minOccurs="0" />
+			<xsd:element name="ChangeShortCodeNumber"
+				type="xsdLocal:ChangeShortCodeNumberOrderType" maxOccurs="1"
+				minOccurs="0" />
+			<xsd:element name="AddRemoveAddon"
+				type="xsdLocal:ChangeShortCodeAddOnOrderType" maxOccurs="1"
+				minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessQueryOrderResponseType">
+		<xsd:sequence>
+			<xsd:element name="ListOfOrders"
+				type="xsdLocal:ListOfOEPQueryOrderResponseType" />
+			<xsd:element name="Status" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessQueryOrderDetailsResponseType">
+		<xsd:sequence>
+			<xsd:element name="ListOfTasks"
+				type="xsdLocal:ListOfOEPQueryOrderDetailsResponseType" />
+			<xsd:element name="Status" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfOEPQueryOrderDetailsResponseType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="Task"
+				type="xsdLocal:OEPOrderTaskResponseType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfOEPQueryOrderResponseType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="OEPOrder"
+				type="xsdLocal:OEPOrderDetailResponseType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessOrderResponseType">
+		<xsd:sequence>
+			<xsd:element name="ListOfOEPOrderResponse" type="xsdLocal:ListOfOEPOrderResponseType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfOEPOrderResponseType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" minOccurs="1" name="OEPOrderResponse" type="xsdLocal:OEPOrderResponseType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OEPOrderTaskResponseType">
+		<xsd:sequence>
+			<xsd:element name="TaskId" type="xsd:string"/>
+			<xsd:element maxOccurs="1" minOccurs="0" name="TaskName" type="xsd:string"/>
+			<xsd:element name="ListOfTaskHistory" type="xsdLocal:ListOfOEPTaskHistory"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfOEPTaskHistory">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="History"	type="xsdLocal:OEPHistoryType" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="OEPHistoryType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="0" name="TaskStatus" type="xsd:string" />
+			<xsd:element name="TaskCreatedDate" type="xsd:dateTime" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OEPOrderDetailResponseType">
+		<xsd:sequence>
+			<xsd:element name="OrderId" type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ChannelName" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ServiceNo" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="OrderStatus" />
+			<xsd:element name="OrderCreatedDate" type="xsd:dateTime" />
+			<xsd:element name="StatusDescription" type="xsd:string" />
+			<xsd:element name="OrderType" type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="BAAccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="1" name="CAAccountNo"
+				type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountName" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OEPOrderResponseType">
+		<xsd:sequence>
+			<xsd:element name="OrderId" type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ChannelTrackingId" />
+			<xsd:element name="StatusCode" type="xsd:string" />
+			<xsd:element name="StatusDescription" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BarringServicesType">
+		<xsd:sequence>
+			<xsd:element ref="PlanName" maxOccurs="1" minOccurs="0" />
+			<xsd:element ref="BarringType" maxOccurs="1" minOccurs="0" />
+			<xsd:element ref="ServiceIdentifier" maxOccurs="1"
+				minOccurs="0" />
+			<xsd:element ref="ServiceNo" maxOccurs="1" minOccurs="0" />
+			<xsd:element name="Action"
+				type="xsdLocal:ServiceLevelBarringActionType" maxOccurs="1"
+				minOccurs="0" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ServiceType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="SuspendActionEnumType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="xx" />
+			<xsd:enumeration value="yy" />
+			<xsd:enumeration value="zz" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="CallDivertActionEnumType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Activate" />
+			<xsd:enumeration value="DeActivate" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DeviceTypeEnumType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="1" />
+			<xsd:enumeration value="2" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="PlanTypeEnumType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="1" />
+			<xsd:enumeration value="2" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="NiceCategoryEnumType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0" />
+			<xsd:enumeration value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SimTypeEnum">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="ESIM" />
+			<xsd:enumeration value="USIM" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="WaveOffEnumType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0" />
+			<xsd:enumeration value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OptionsEnumType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="1" />
+			<xsd:enumeration value="2" />
+			<xsd:enumeration value="3" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="TerminationChargeEnum">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0" />
+			<xsd:enumeration value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DepositTypeEnum">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0" />
+			<xsd:enumeration value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="BarringActionType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0" />
+			<xsd:enumeration value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="BarringLevelType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0" />
+			<xsd:enumeration value="1" />
+			<xsd:enumeration value="2" />
+			<xsd:enumeration value="3" />
+			<xsd:enumeration value="4" />
+			<xsd:enumeration value="5" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="BarringTypeEnum">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0" />
+			<xsd:enumeration value="1" />
+			<xsd:enumeration value="2" />
+			<xsd:enumeration value="3" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ServiceLevelBarringActionType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0" />
+			<xsd:enumeration value="1" />
+			<xsd:enumeration value="2" />
+			<xsd:enumeration value="3" />
+			<xsd:enumeration value="4" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ServiceTypeEnum">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Mobile" />
+			<xsd:enumeration value="BB" />
+			<xsd:enumeration value="SC" />
+			<xsd:enumeration value="Bulk SMS" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="AddonActionEnum">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Add" />
+			<xsd:enumeration value="Remove" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="IdTypeEnum">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="senderId" />
+			<xsd:enumeration value="shortCode" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="BulkSMSTypeEnum">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Corporate" />
+			<xsd:enumeration value="Portal" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="NotificationLanguageEnum">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="English" />
+			<xsd:enumeration value="Dhivehi" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="BarringLevel" type="xsdLocal:BarringLevelType" />
+	<xsd:element name="BarringAction" type="xsdLocal:BarringActionType" />
+	<xsd:element name="BarringType" type="xsdLocal:BarringTypeEnum" />
+	<xsd:element name="ShortNumberAction" type="xsd:string" />
+	<xsd:element name="OrderCreatedDate" type="xsd:date" />
+	<xsd:element name="OrderCreatedDateMin" type="xsd:dateTime" />
+	<xsd:element name="OrderCreatedDateMax" type="xsd:dateTime" />
+	<xsd:element name="OrderStatus" type="xsd:string" />
+	<xsd:element name="ServiceNo" type="xsd:string" />
+	<xsd:element name="ChannelName" type="xsd:string" />
+	<xsd:element name="OrderId" type="xsd:string" />
+	<xsd:element name="CugId" type="xsd:string" />
+	<xsd:element name="ServiceNumber" type="xsd:string" />
+	<xsd:element name="OldServiceNumber" type="xsd:string" />
+	<xsd:element name="ShortNumber" type="xsd:string" />
+	<xsd:element name="OldShortNumber" type="xsd:string" />
+	<xsd:element name="BAAccountNo" type="xsd:string" />
+	<xsd:element name="CugAction" type="xsd:string" />
+	<xsd:element name="ChannelTrackingId" type="xsd:string" />
+	<xsd:element name="MsIsdn" type="xsd:string" />
+	<xsd:element name="Imsi" type="xsd:string" />
+	<xsd:element name="OldSimNo" type="xsd:string" />
+	<xsd:element name="ChangeReason" type="xsd:string" />
+	<xsd:element name="WaiverReason" type="xsd:string" />
+	<xsd:element name="SimChargeFlag" type="xsd:boolean" />
+	<xsd:element name="ServiceChargeFlag" type="xsd:boolean" />
+	<xsd:element name="UnsuspendFlag" type="xsd:boolean" />
+	<xsd:element name="Options" type="xsdLocal:OptionsEnumType" />
+	<xsd:element name="NiceCategory" type="xsdLocal:NiceCategoryEnumType" />
+	<xsd:element name="NiceCategoryValue" type="xsd:string" />
+	<xsd:element name="SimNo" type="xsd:string" />
+	<xsd:element name="SimType" type="xsdLocal:SimTypeEnum" />
+	<xsd:element name="ContractStartDate" type="xsd:date" />
+	<xsd:element name="ContractEndDate" type="xsd:date" />
+	<xsd:element name="DeviceType" type="xsdLocal:DeviceTypeEnumType" />
+	<xsd:element name="Action" type="xsdLocal:SuspendActionEnumType" />
+	<xsd:element name="DeviceMake" type="xsd:string" />
+	<xsd:element name="PlanName" type="xsd:string" />
+	<xsd:element name="OverridenPrice" type="xsd:decimal" />
+	<xsd:element name="PlanStartDate" type="xsd:date" />
+	<xsd:element name="PlanEndDate" type="xsd:date" />
+	<xsd:element name="PlanType" type="xsdLocal:PlanTypeEnumType" />
+	<xsd:element name="PlanAction" type="xsd:string" />
+	<xsd:element name="OrderName" type="xsd:string" />
+	<xsd:element name="OrderAction" type="xsd:string" />
+	<xsd:element name="OrderStartDate" type="xsd:date" />
+	<xsd:element name="OrderUserId" type="xsd:string" />
+	<xsd:element name="OrderServiceType" type="xsd:string" />
+	<xsd:element name="CreditScoreDate" type="xsd:date" />
+	<xsd:element name="CreditScore" type="xsd:string" />
+	<xsd:element name="SpendingCapMin" type="xsd:string" />
+	<xsd:element name="SpendingCapMax" type="xsd:string" />
+	<xsd:element name="SpendingCap" type="xsd:string" />
+	<xsd:element name="ServiceLevelDeposit" type="xsd:string" />
+	<xsd:element name="RoamingDeposit" type="xsd:string" />
+	<xsd:element name="DepositDate" type="xsd:date" />
+	<xsd:element name="CollectedOn" type="xsd:dateTime" />
+	<xsd:element name="DepositMethod" type="xsd:string" />
+	<xsd:element name="DepositCurrency" type="xsd:string" />
+	<xsd:element name="DepositAmount" type="xsd:decimal" />
+	<xsd:element name="DepositPayment" type="xsdLocal:DepositPaymentType" />
+	<xsd:element name="AccountNo" type="xsd:string" />
+	<xsd:element name="AccountName" type="xsd:string" />
+	<xsd:element name="ServiceIdentifier" type="xsd:string" />
+	<xsd:element name="OldMsIsdn" type="xsd:string" />
+	<xsd:element name="PortType" type="xsd:string" />
+	<xsd:element name="NewRoute" type="xsd:string" />
+	<xsd:element name="EarlyTerminationFlag" type="xsd:string" />
+	<xsd:element name="TerminationCharge" type="xsdLocal:TerminationChargeEnum" />
+	<xsd:element name="SIMDetails" type="xsdLocal:SIMDetailsType" />
+	<xsd:element name="ShortCodeNumber" type="xsd:string" />
+	<xsd:element name="ShortCodeType" type="xsd:string" />
+	<xsd:element name="ShortCodeCategory" type="xsd:string" />
+	<xsd:element name="OldShortCodeNumber" type="xsd:string" />
+	<xsd:element name="Reason" type="xsd:string" />
+	<xsd:element name="SuspensionDuration" type="xsd:string" />
+	<xsd:element name="CustomerAccountId" type="xsd:string" />
+	<xsd:element name="BillingAccountId" type="xsd:string" />
+	<xsd:element name="BillingAccountName" type="xsd:string" />
+	<xsd:element name="CustomerAccountName" type="xsd:string" />
+	<xsd:element name="Id" type="xsd:string" />
+	<xsd:element name="IdType" type="xsdLocal:IdTypeEnum" />
+	<xsd:element name="BulkSMSType" type="xsdLocal:BulkSMSTypeEnum" />
+	<xsd:element name="ContactNo" type="xsd:string" />
+	<xsd:element name="Email" type="xsd:string" />
+	<xsd:element name="DepositReceiptNo" type="xsd:string" />
+	<xsd:element name="CustomerName" type="xsd:string" />
+	<xsd:element name="WaveOff" type="xsdLocal:WaveOffEnumType" />
+	<xsd:element name="WaveOffReason" type="xsd:string" />
+	<xsd:element name="DepositType" type="xsdLocal:DepositTypeEnum" />
+	<xsd:element name="ServiceType" type="xsdLocal:ServiceTypeEnum" />
+	<xsd:element name="HandSetDetails" type="xsdLocal:HandSetDetailsType" />
+	<xsd:element name="NotificationLanguage" type="xsdLocal:NotificationLanguageEnum" />
+	<xsd:element name="EmailId" type="xsd:string" />
+	<xsd:element name="SuspendedIndicator" type="xsd:string" />
+	<xsd:element name="DepositWaiver" type="xsd:string" />
+	<xsd:element name="TerminationNotes" type="xsd:string" />
+	<xsd:element name="ServiceSuspensionDescription" type="xsd:string" />
+	<xsd:element name="DealName" type="xsd:string" />
+	<xsd:element name="OrderResumeDate" type="xsd:date" />
+	<xsd:element name="OrderType" type="xsd:string" />
+
+
+
+	<xsd:complexType name="DepositPaymentType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="0" ref="CollectedOn" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="DepositAmount" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="WaveOff" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="WaveOffReason" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="DepositReceiptNo" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="DepositType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="PlanName" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="DepositWaiver" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="HandSetDetailsType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="DeviceMake" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="DeviceType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AddActionPlanType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="PlanName" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="OverridenPrice" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="PlanStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="PlanEndDate" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="PlanAction" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ChangePlanActionPlanType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="PlanName" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="OverridenPrice" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="PlanStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="PlanEndDate" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="PlanAction" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="MNPDetailsType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="PortType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="NewRoute" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SIMDetailsType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="SimNo" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="Imsi" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SimType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AddOrderMobileType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="MsIsdn" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="NiceCategory" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="NiceCategoryValue" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SIMDetails" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ContractStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ContractEndDate" />
+			<xsd:element maxOccurs="unbounded" minOccurs="0"
+				ref="HandSetDetails" />
+			<xsd:element maxOccurs="unbounded" minOccurs="1" name="Plan"
+				type="xsdLocal:AddActionPlanType" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderUserId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ChannelTrackingId" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="CreditScoreDate" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="CreditScore" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SpendingCapMin" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SpendingCapMax" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SpendingCap" />
+			<xsd:element maxOccurs="unbounded" minOccurs="0"
+				ref="DepositPayment" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				ref="NotificationLanguage" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="AccountName" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="PortType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="CustomerAccountId" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="BillingAccountId" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="BillingAccountName" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				ref="CustomerAccountName" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="Options" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="WaiverReason" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AddOrderM2MType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="MsIsdn" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SIMDetails" />
+			<xsd:element maxOccurs="unbounded" minOccurs="1" name="Plan"
+				type="xsdLocal:AddActionPlanType" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderUserId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ChannelTrackingId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="BillingAccountId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="CustomerAccountId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="CustomerAccountId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="BillingAccountId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="BillingAccountName" />
+			<xsd:element maxOccurs="1" minOccurs="1"
+				ref="CustomerAccountName" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AddOrderBulkSMSType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="0" ref="Id" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="IdType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="BulkSMSType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ContactNo" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="Email" />
+			<xsd:element maxOccurs="unbounded" minOccurs="1" name="Plan"
+				type="xsdLocal:AddActionPlanType" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderUserId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ChannelTrackingId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="CustomerName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="BillingAccountId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="CustomerAccountId" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AddOrderMobileBBType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="MsIsdn" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SIMDetails" />
+			<xsd:element maxOccurs="unbounded" minOccurs="0"
+				ref="HandSetDetails" />
+			<xsd:element maxOccurs="unbounded" minOccurs="1" name="Plan"
+				type="xsdLocal:AddActionPlanType" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderUserId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ChannelTrackingId" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="CreditScoreDate" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="CreditScore" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SpendingCapMin" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SpendingCapMax" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SpendingCap" />
+			<xsd:element maxOccurs="unbounded" minOccurs="0"
+				ref="DepositPayment" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				ref="NotificationLanguage" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="AccountName" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="PortType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="CustomerAccountId" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="BillingAccountId" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="BillingAccountName" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				ref="CustomerAccountName" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AddOrderShortCodeType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ShortCodeNumber" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ShortCodeType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ShortCodeCategory" />
+			<xsd:element maxOccurs="unbounded" minOccurs="1" name="Plan"
+				type="xsdLocal:AddActionPlanType" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderUserId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ChannelTrackingId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="EmailId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="CustomerAccountId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="BillingAccountId" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="BillingAccountName" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				ref="CustomerAccountName" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ChangePlanOrderType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ServiceIdentifier" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="MsIsdn" />
+			<xsd:element maxOccurs="unbounded" minOccurs="1" name="Plan"
+				type="xsdLocal:ChangePlanActionPlanType" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderUserId" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ChannelTrackingId" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="CreditScoreDate" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="CreditScore" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SpendingCapMin" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SpendingCapMax" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SpendingCap" />
+			<xsd:element maxOccurs="unbounded" minOccurs="0"
+				ref="DepositPayment" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ChangePlanShortCodeOrderType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ShortCodeNumber" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ShortCodeType" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ShortCodeCategory" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ServiceIdentifier" />
+			<xsd:element maxOccurs="unbounded" minOccurs="1" name="Plan"
+				type="xsdLocal:ChangePlanActionPlanType" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderUserId" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ChannelTrackingId" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ChangeAddOnOrderType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ServiceIdentifier" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="MsIsdn" />
+			<xsd:element maxOccurs="unbounded" minOccurs="0"
+				ref="HandSetDetails" />
+			<xsd:element maxOccurs="unbounded" minOccurs="1" name="Plan"
+				type="xsdLocal:ChangePlanActionPlanType" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderUserId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ChannelTrackingId" />
+			<xsd:element maxOccurs="unbounded" minOccurs="0"
+				ref="DepositPayment" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ChangeShortCodeAddOnOrderType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ServiceIdentifier" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ShortCodeNumber" />
+			<xsd:element maxOccurs="unbounded" minOccurs="1" name="Plan"
+				type="xsdLocal:ChangePlanActionPlanType" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderUserId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ChannelTrackingId" />
+			<xsd:element maxOccurs="unbounded" minOccurs="0"
+				ref="DepositPayment" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ChangeSIMOrderType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="MsIsdn" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="SIMDetails" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OldSimNo" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="Options" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="WaiverReason" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ChangeReason" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderUserId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ChannelTrackingId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ServiceIdentifier" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ChangeBulkSMSDetailsOrderType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="0" ref="Id" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="IdType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ContactNo" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="Email" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderUserId" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ChannelTrackingId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ServiceIdentifier" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ChangeMsIsdnOrderType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="MsIsdn" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OldMsIsdn" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="Options" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="WaiverReason" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="NiceCategory" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="NiceCategoryValue" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderUserId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ChannelTrackingId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ChangeReason" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ServiceIdentifier" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ChangeShortCodeNumberOrderType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ShortCodeNumber" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ShortCodeType" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ShortCodeCategory" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="OldShortCodeNumber" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderUserId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderServiceType" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ChannelTrackingId" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="ChangeReason" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ServiceIdentifier" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FcaOrderType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="AccountNo" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="PlanName" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ServiceIdentifier" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="MsIsdn" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderAction" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="OrderStartDate" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ChannelTrackingId" />
+			<xsd:element maxOccurs="1" minOccurs="1" ref="ChannelName" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>
+    
+    

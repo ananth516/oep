@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:brm="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+  <xs:element name="CUS_OP_CUST_UPDATE_SERVICE_inputFlist">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="brm:POID"/>
+        <xs:element ref="brm:ACTION"/>
+        <xs:element ref="brm:ACCOUNT_NO"/>
+        <xs:element ref="brm:PROGRAM_NAME"/>
+        <xs:element ref="brm:MSISDN"/>
+        <xs:element ref="brm:CUS_FLD_DEVICE_MODEL"/>
+        <xs:element ref="brm:CUS_FLD_DEVICE_TYPE"/>
+        <xs:element ref="brm:REASON_CODE"/>
+        <xs:element ref="brm:CUS_FLD_INSTALLMENT_PLAN"/>
+        <xs:element ref="brm:USER_NAME"/>
+        <xs:element ref="brm:SERVICE_ID"/>
+        <xs:element maxOccurs="unbounded" ref="brm:PLAN"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="POID" type="xs:string"/>
+  <xs:element name="ACTION" type="xs:string"/>
+  <xs:element name="ACCOUNT_NO" type="xs:string"/>
+  <xs:element name="PROGRAM_NAME" type="xs:string"/>
+  <xs:element name="MSISDN" type="xs:long"/>
+  <xs:element name="CUS_FLD_DEVICE_MODEL" type="xs:string"/>
+  <xs:element name="CUS_FLD_DEVICE_TYPE" type="xs:int"/>
+  <xs:element name="REASON_CODE" type="xs:string"/>
+  <xs:element name="CUS_FLD_INSTALLMENT_PLAN" type="xs:int"/>
+  <xs:element name="USER_NAME" type="xs:string"/>
+  <xs:element name="SERVICE_ID" type="xs:string"/>
+  <xs:element name="PLAN">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="brm:NAME"/>
+        <xs:element ref="brm:CUS_FLD_PLAN_TYPE"/>
+      </xs:sequence>
+      <xs:attribute name="elem" use="required" type="xs:int"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NAME" type="xs:string"/>
+  <xs:element name="CUS_FLD_PLAN_TYPE" type="xs:int"/>
+</xs:schema>

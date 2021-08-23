@@ -1,0 +1,26 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" 
+  targetNamespace="http://xmlns.oracle.com/communications/schemas/CRMSync" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="NotifRemoveServiceNotification">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="AccountNo"/>
+        <xs:element type="xs:string" name="AccountObj"/>
+        <xs:element type="xs:int" name="ServiceNo"/>
+		<xs:element type="xs:string" name="Login"/>
+        <xs:element type="xs:string" name="EventDescr"/>
+        <xs:element type="xs:byte" name="TerminationIndicator"/>
+        <xs:element name="RemoveServiceEvents">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="BasePackage"/>
+              <xs:element type="xs:byte" name="QTQTFLAG"/>
+              <xs:element type="xs:byte" name="MMFLAG"/>
+            </xs:sequence>
+            <xs:attribute type="xs:byte" name="ElementId"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="InstanceId"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

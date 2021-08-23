@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+  <Properties>
+    <Property name="filename">OrderEntryPortal.log</Property>
+  </Properties>
+  
+ 
+  <Appenders>
+    <!-- Appender type="Console" name="STDOUT">
+      <Layout type="PatternLayout" pattern="%m MDC%X%n"/>     
+    </Appender>    
+    <Appender type="File" name="File" fileName="${filename}">
+      <Layout type="PatternLayout">
+        <Pattern>%d [%p] %C{1.} [%t] %m%n</Pattern>
+      </Layout>
+    </Appender-->
+    <Console name="STDOUT" target="SYSTEM_OUT">
+        <PatternLayout>
+            <!-- pattern>
+               [%d] [%p] [%c] [%t] %m%n
+            </pattern>-->
+            <pattern>&lt;%d{MMM dd, yyyy, h:mm:ss,SSS a z}&gt; &lt;%p&gt; &lt;%c&gt; &lt;%t&gt; &lt;%L&gt; %m%n</pattern>
+        </PatternLayout>
+    </Console>
+    <RollingFile name="File" fileName="OrderEntryPortal.log" filePattern="OrderEntryPortal-%i.log" >
+        <PatternLayout>
+            <pattern>
+                &lt;%d{MMM dd, yyyy, h:mm:ss,SSS a z}&gt; &lt;%p&gt; &lt;%c&gt; &lt;%t&gt; &lt;%L&gt; %m%n
+            </pattern>
+        </PatternLayout>
+        <Policies>
+			<SizeBasedTriggeringPolicy size="40 MB" />
+		</Policies>
+		<DefaultRolloverStrategy max="50"/>
+    </RollingFile>
+  </Appenders> 
+  <Loggers>    
+    <Root level="INFO">
+      <AppenderRef ref="STDOUT"/>
+      <AppenderRef ref="File"/>
+    </Root>
+    <Logger name="org.apache.camel.impl" level="INFO">
+    	<AppenderRef ref="STDOUT"/>
+     	 <AppenderRef ref="File"/>
+    </Logger>
+    <Logger name="com.oracle.oep.*" level="INFO">
+    	<AppenderRef ref="STDOUT"/>
+     	 <AppenderRef ref="File"/>
+    </Logger>
+    <Logger name="org.apache.camel.model" level="INFO">
+    	<AppenderRef ref="STDOUT"/>
+     	 <AppenderRef ref="File"/>
+    </Logger>
+     <Logger name="org.springframework.beans" level="DEBUG">
+    </Logger>
+    
+  </Loggers> 
+</Configuration>

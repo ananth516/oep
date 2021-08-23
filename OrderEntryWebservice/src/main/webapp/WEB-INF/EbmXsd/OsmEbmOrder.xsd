@@ -1,0 +1,259 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/SalesOrder/V2" xmlns:ws="http://xmlns.oracle.com/communications/ordermanagement" xmlns:v2="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/SalesOrder/V2">
+  <xs:element name="ProcessSalesOrderFulfillmentEBM">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:DataArea"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DataArea">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:Process"/>
+        <xs:element ref="v2:ProcessSalesOrderFulfillment"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Process">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="ProcessSalesOrderFulfillment">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:Identification"/>
+        <xs:element ref="v2:OrderDateTime"/>
+        <xs:element ref="v2:RequestedDeliveryDateTime"/>
+        <xs:element ref="v2:TypeCode"/>
+        <xs:element ref="v2:FulfillmentPriorityCode"/>
+        <xs:element ref="v2:FulfillmentSuccessCode"/>
+        <xs:element ref="v2:FulfillmentModeCode"/>
+        <xs:element ref="v2:NumberToBeReleased"/>
+        <xs:element ref="v2:MsIsdn"/>
+        <xs:element ref="v2:ForwardToNumber"/>
+        <xs:element ref="v2:FTNAction"/>
+        <xs:element ref="v2:AccountId"/>        
+        <xs:element ref="v2:Status"/>
+        <xs:element ref="v2:OrderSource"/>
+        <xs:element ref="v2:OrderName"/>
+        <xs:element maxOccurs="unbounded" ref="v2:SalesOrderLine"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OrderDateTime" type="xs:dateTime"/>
+  <xs:element name="FulfillmentPriorityCode" type="xs:integer"/>
+  <xs:element name="FulfillmentSuccessCode" type="xs:NCName"/>
+  <xs:element name="OrderSource" type="xs:NCName"/>
+  <xs:element name="OrderName" type="xs:NCName"/>
+  <xs:element name="SalesOrderLine">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:Identification"/>
+        <xs:element ref="v2:ParentLineIdentification"/>
+        <xs:sequence minOccurs="0">
+          <xs:element ref="v2:AccountId"/>
+          <xs:element ref="v2:BarringLevel"/>
+          <xs:element ref="v2:BarringType"/>
+          <xs:element ref="v2:AccountName"/>
+          <xs:element ref="v2:BillingAccountId"/>
+          <xs:element ref="v2:CustomerAccountId"/>
+        </xs:sequence>
+        <xs:element ref="v2:ServiceActionCode"/>
+        <xs:element ref="v2:StartBillingOnFirstServiceUsageIndicator"/>
+        <xs:element ref="v2:FulfillmentModeCode"/>
+        <xs:element ref="v2:MilestoneCode"/>
+        <xs:element ref="v2:Status"/>
+        <xs:element ref="v2:ServiceAddress"/>
+        <xs:element ref="v2:ItemReference"/>
+        <xs:element ref="v2:SalesOrderSchedule"/>
+        <xs:element ref="v2:BillableLineItem" minOccurs="0"/>
+        <xs:element ref="v2:ProvisionableLineItem" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ParentLineIdentification" type="v2:ID"/>
+  <xs:element name="AccountId" type="xs:NCName"/>
+  <xs:element name="BarringLevel" type="xs:NCName"/>
+  <xs:element name="BarringType" type="xs:NCName"/>
+  <xs:element name="AccountName" type="xs:NCName"/>
+  <xs:element name="BillingAccountId" type="xs:NMTOKEN"/>
+  <xs:element name="CustomerAccountId" type="xs:NCName"/>
+  <xs:element name="ServiceActionCode" type="xs:NCName"/>
+  <xs:element name="StartBillingOnFirstServiceUsageIndicator" type="xs:boolean"/>
+  <xs:element name="MilestoneCode">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="ServiceAddress">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:LineOne"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LineOne" type="xs:string"/>
+  <xs:element name="ItemReference">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:Name"/>
+        <xs:element ref="v2:OldPlanName"/>
+        <xs:element maxOccurs="unbounded" ref="v2:ClassificationCode"/>
+        <xs:element ref="v2:ServiceIndicator"/>
+        <xs:element ref="v2:TypeCode"/>
+        <xs:element ref="v2:SuspendReason"/>
+        <xs:element ref="v2:ServiceIdentifier"/>
+        <xs:element ref="v2:Plan_Start_T"/>
+        <xs:element ref="v2:Plan_End_T"/>
+        <xs:element ref="v2:Plan_Type"/>
+        <xs:element ref="v2:CsrId"/>
+        <xs:element ref="v2:SpecificationGroup"/>
+        <xs:element ref="v2:NetworkIndicator"/>
+        <xs:element ref="v2:OverridenPrice"/>
+        <xs:sequence minOccurs="0">
+          <xs:element maxOccurs="unbounded" ref="v2:CUS_FLD_HANDSET"/>
+          <xs:element ref="v2:CUS_FLD_CREDIT_SCORES"/>
+          <xs:element maxOccurs="unbounded" ref="v2:DEPOSITS"/>
+        </xs:sequence>
+        <xs:element ref="v2:NotificationLanguage"/>        
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ClassificationCode">
+    <xs:complexType mixed="true">
+      <xs:attribute name="listID" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ServiceIndicator" type="xs:boolean"/>
+  <xs:element name="ServiceIdentifier" type="xs:NCName"/>
+  <xs:element name="SuspendReason" type="xs:NCName"/>
+  <xs:element name="OldPlanName" type="xs:NCName"/>
+  <xs:element name="Plan_Start_T" type="xs:dateTime" />
+    
+  <xs:element name="Plan_End_T" type="xs:dateTime"/>
+   
+  <xs:element name="Plan_Type" type="xs:integer"/>
+  <xs:element name="CsrId" type="xs:NCName"/>
+  <xs:element name="SpecificationGroup">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:Name"/>
+        <xs:element maxOccurs="unbounded" ref="v2:Specification"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Specification">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:Name"/>
+        <xs:element ref="v2:Value"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Value" type="xs:NMTOKEN"/>
+  <xs:element name="NetworkIndicator" type="xs:boolean"/>
+  <xs:element name="OverridenPrice" type="xs:decimal"/>
+  <xs:element name="CUS_FLD_HANDSET">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:CUS_FLD_DEVICE_MODEL"/>
+        <xs:element ref="v2:CUS_FLD_DEVICE_TYPE"/>
+      </xs:sequence>
+      <xs:attribute name="elem" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CUS_FLD_DEVICE_MODEL" type="xs:string"/>
+  <xs:element name="CUS_FLD_DEVICE_TYPE" type="xs:integer"/>
+  <xs:element name="CUS_FLD_CREDIT_SCORES">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:CUS_FLD_CREDIT_SCORE"/>
+        <xs:element ref="v2:CUS_FLD_SC_MAX_VAL"/>
+        <xs:element ref="v2:CUS_FLD_SC_MIN_VAL"/>
+        <xs:element ref="v2:CUS_FLD_SC_ACTUAL_VAL"/>
+      </xs:sequence>
+      <xs:attribute name="elem" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CUS_FLD_CREDIT_SCORE" type="xs:decimal"/>
+  <xs:element name="CUS_FLD_SC_MAX_VAL" type="xs:decimal"/>
+  <xs:element name="CUS_FLD_SC_MIN_VAL" type="xs:decimal"/>
+  <xs:element name="CUS_FLD_SC_ACTUAL_VAL" type="xs:decimal"/>
+  <xs:element name="DEPOSITS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:RECEIPT_NO"/>
+        <xs:element ref="v2:CUS_FLD_SERVICE_TYPE"/>
+        <xs:element ref="v2:CUS_FLD_COLLECTED_ON"/>
+        <xs:element ref="v2:AMOUNT"/>
+        <xs:element ref="v2:TYPE"/>
+        <xs:element ref="v2:OPTIONS"/>
+        <xs:element ref="v2:CUS_FLD_WAIVER_REASON"/>
+	    <xs:element ref="v2:CUS_FLD_DEPOSIT_WAIVER"   minOccurs="0"/>
+        <xs:element ref="v2:TYPE_STR"/>
+      </xs:sequence>
+      <xs:attribute name="elem" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+   <xs:element name="RECEIPT_NO" type="xs:NCName"/>
+  <xs:element name="CUS_FLD_SERVICE_TYPE" type="xs:NCName"/>
+  <xs:element name="CUS_FLD_COLLECTED_ON" type="xs:dateTime"/>
+  <xs:element name="AMOUNT" type="xs:decimal"/>
+  <xs:element name="TYPE" type="xs:integer"/>
+  <xs:element name="OPTIONS" type="xs:integer"/>
+  <xs:element name="CUS_FLD_WAIVER_REASON" type="xs:string"/>
+  <xs:element name="CUS_FLD_DEPOSIT_WAIVER" type="xs:decimal"/>
+  <xs:element name="TYPE_STR" type="xs:string"/>
+  <xs:element name="SalesOrderSchedule">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:RequestedDeliveryDateTime"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Identification">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="v2:ID">
+          <xs:sequence>
+            <xs:element minOccurs="0" ref="v2:Revision"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Revision">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:Number"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Number" type="xs:integer"/>
+  <xs:element name="RequestedDeliveryDateTime" type="xs:dateTime"/>
+  <xs:element name="TypeCode" type="xs:string"/>
+  <xs:element name="FulfillmentModeCode" type="xs:NCName"/>
+  <xs:element name="NumberToBeReleased" type="xs:NCName"/>
+  <xs:element name="MsIsdn" type="xs:NCName"/>
+  <xs:element name="ForwardToNumber" type="xs:NCName"/>
+  <xs:element name="FTNAction" type="xs:NCName"/> 
+  <xs:element name="Status">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:Code"/>
+        <xs:element ref="v2:Description"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Code" type="xs:NCName"/>
+  <xs:element name="Description">
+    <xs:complexType/>
+  </xs:element>
+  <xs:complexType name="ID">
+    <xs:sequence>
+      <xs:element ref="v2:ID"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ID" type="xs:NMTOKEN"/>
+  <xs:element name="Name" type="xs:string"/>
+  <xs:element name="NotificationLanguage" type="xs:string"/>
+  <xs:element name="BillableLineItem" type="xs:boolean"/>
+  <xs:element name="ProvisionableLineItem" type="xs:string"/>   
+</xs:schema>

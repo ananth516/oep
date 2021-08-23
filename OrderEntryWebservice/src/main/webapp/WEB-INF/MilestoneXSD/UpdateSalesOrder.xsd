@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/SalesOrder/V2" xmlns:v2="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/SalesOrder/V2">
+  <xs:element name="UpdateSalesOrderEBM">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:DataArea"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DataArea">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:Update"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Update">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:UpdateSalesOrder"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateSalesOrder">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:Identification"/>
+        <xs:element ref="v2:Status"/>
+        <xs:element ref="v2:AllocatedMSISDN"/>
+        <xs:element maxOccurs="unbounded" ref="v2:SalesOrderLine"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SalesOrderLine">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:Identification"/>
+        <xs:element ref="v2:ParentLineIdentification"/>
+        <xs:element ref="v2:MilestoneCode"/>
+        <xs:element ref="v2:Status"/>
+        <xs:element ref="v2:SalesOrderSchedule"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ParentLineIdentification" type="v2:ID"/>
+  <xs:element name="MilestoneCode" type="xs:string"/>
+  <xs:element name="SalesOrderSchedule">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:ExpectedDeliveryDateTime"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ExpectedDeliveryDateTime" type="xs:dateTime"/>
+  <xs:element name="Identification" type="v2:ID"/>
+  <xs:element name="Status">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="v2:Code"/>
+        <xs:element ref="v2:Description"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Code" type="xs:string"/>
+  <xs:element name="AllocatedMSISDN" type="xs:string"/>
+  <xs:element name="Description" type="xs:string"/>
+  <xs:complexType name="ID">
+    <xs:sequence>
+      <xs:element ref="v2:ID"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ID" type="xs:NCName"/>
+</xs:schema>
